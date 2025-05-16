@@ -1,17 +1,32 @@
+import { BrowserRouter } from 'react-router-dom'
 import './App.css'
-import Header from './components/header'
-import ProductCard from './components/productCard'
+import HomePage from './pages/homepage'
+import LoginPage from './pages/login'
+import SignUpPage from './pages/signUp'
+import { Route, Routes } from 'react-router-dom'
+import AdminPage from './pages/adminpage'
+
 
 function App() {
 
   return (
-    <>
-       <Header/>
-       <ProductCard name="Appple lap" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quia." price="1000" image="https://fastly.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"></ProductCard>
-       
-    </>
+    <BrowserRouter>
+    
+       <div>
+        {/* <Header/> */}
+        <Routes path="/*">
+          <Route path="/" element={<HomePage/>}/>
+          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/signup" element={<SignUpPage/>}/>
+          <Route path="/*" element={<h1>404 page not found</h1>}/>\
+          <Route path="/admin/*" element={<AdminPage/>}/>
+        
+        </Routes>   
+       </div>
+
+    </BrowserRouter>
       
   )
-}
+}  
 
 export default App
