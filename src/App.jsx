@@ -5,6 +5,8 @@ import LoginPage from './pages/login'
 import SignUpPage from './pages/signUp'
 import { Route, Routes } from 'react-router-dom'
 import AdminPage from './pages/adminpage'
+import TestPage from './pages/testPage'
+import { Toaster } from 'react-hot-toast'
 
 
 function App() {
@@ -13,6 +15,7 @@ function App() {
     <BrowserRouter>
     
        <div>
+        <Toaster position="top-right"/>
         {/* <Header/> */}
         <Routes path="/*">
           <Route path="/" element={<HomePage/>}/>
@@ -20,6 +23,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage/>}/>
           <Route path="/*" element={<h1>404 page not found</h1>}/>\
           <Route path="/admin/*" element={<AdminPage/>}/>
+          <Route path="/testing" element={<TestPage/>}/>
         
         </Routes>   
        </div>
