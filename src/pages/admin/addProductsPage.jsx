@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 export default function AddProductPage() {
   const [productId, setProductId] = useState("");
@@ -11,7 +12,15 @@ export default function AddProductPage() {
   const [stock, setStock] = useState(0);
 
   function addProduct(){
-    if()
+    if(images.length <= 0 ){
+      toast.error("Please add at least one image");
+      return
+    }
+
+    const promisesArray = []
+    for (let i=0; i<images.length; i++){
+      promisesArray.push(
+    }
 
   }
 
