@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { mediaUpload } from "../../utils/mediaUpload";
+import mediaUpload from "../../utils/mediaUpload";
+
 
 export default function AddProductPage() {
   const [productId, setProductId] = useState("");
@@ -82,15 +83,13 @@ export default function AddProductPage() {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        {/* Images */}
-        <input
+       <input
           type="file"
           multiple
-          value={images}
-          placeholder="Image URLs (comma separated)"
-          className="w-full mb-3 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-          onChange={(e) => setImages(e.target.value.split(","))}
+          className="w-full mb-3 p-3 border rounded-lg"
+          onChange={(e) => setImages([...e.target.files])}
         />
+
 
         {/* Prices */}
         <div className="grid grid-cols-2 gap-4 mb-3">
