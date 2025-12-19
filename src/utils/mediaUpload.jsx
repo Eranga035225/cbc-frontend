@@ -10,8 +10,28 @@ const supabase = createClient(url, key);
 
 
 export default function mediaUpload(file){
-    
+  const mediaUploadPromise = new Promise(
+      (resolve,reject)=> {
+        if(file==null){
+          reject("No file selected");
+        }
+        
+
+
+      }
+
+
+  );
+
+
+
+
+
+  return mediaUploadPromise
+
 
 
 
 }
+
+
