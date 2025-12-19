@@ -19,6 +19,7 @@ export default function LoginPage() {
     toast.success("Login success");  //if error status code is returned that goes a an error
     console.log(response);
     localStorage.setItem("token", response.data.token);
+    
 
     }catch(e){
       // 
