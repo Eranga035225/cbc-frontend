@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 export default function LoginPage() {
   const[email,setEmail] = useState("");
   const[password,setPassword] = useState("");
+  
 
   async function handleLogin(){
     console.log(email);
