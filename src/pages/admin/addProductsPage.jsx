@@ -38,6 +38,22 @@ export default function AddProductPage() {
        const imageUrls = await Promise.all(promisesArray)
        console.log("Uploaded image URLs:", imageUrls);
 
+       const altNamesArray = altNames.split(",")
+
+       const product = {
+        productId : productId,
+        name : name,
+        altNames : altNamesArray,
+        description : description,
+        images : imageUrls,
+        labeledPrice : labeledPrice,
+        price : price,
+        stock : stock
+       }
+
+
+       
+
     }catch(e){
       console.log(e)
 
