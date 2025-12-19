@@ -21,10 +21,17 @@ export default function ProductsPage() {
         <tbody>
           {
             products.map(
-              (item)=> {
+              (item, index)=> {
                 return(
-                  <tr>
-                    <span> {item.productId}</span>
+                  <tr key={index}>
+                    <td> {item.productId} </td>
+                    <td> {item.name} </td>
+                    <td> <img className="productImage w-[50px] h-[50px]" src={item.images[0]}/></td>
+                    <td> {item.labeledPrice} </td>
+                    <td> {item.price} </td>
+                    <td> {item.stock} </td>
+                   
+
 
                   </tr>
 
