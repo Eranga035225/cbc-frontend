@@ -31,13 +31,17 @@ export default function ProductsPage() {
   }, []);
 
   return (
-    <div className="w-full h-full max-h-full overflow-y-scroll">
+    <div className="w-full h-full max-h-full overflow-y-scroll bg-amber-300 relative">
 
       {error && (
         <p className="text-red-500 text-center my-4">
           {error}
         </p>
       )}
+
+      <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition absolute top-4 right-4">
+         +
+      </button>
 
       <table className="w-full text-center">
         <thead>
