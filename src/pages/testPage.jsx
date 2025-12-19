@@ -1,52 +1,29 @@
-import React, { useState } from "react";
+import { useState } from "react";
 export default function TestPage(){
+  const [image, setImage] = useState(null);
 
-   const [count,setCount] = useState(0);
-   const [status,setStatus] = useState("Passed");
-
+  
 
 
 
   return (
-    <div className = "w-full h-screen  flex-col justify-center items-center">
-      <div className = "w-[450px] h-[250px] shadow  flex justify-center items-center">
-        <button onClick = {()=>{
-         setCount(count - 1)
-        }}
-        className="bg-blue-600 text-white font-bold text-center w-[100px] h-[40px] text-[20px] cursor-pointer ">-</button>
-        <span className="text-[20px] font-bold text-center w-[100px] h-[40px] mx-[10px] flex justify-center items-center">
-          {count}
-        </span>
-        <button onClick = {()=> 
-         setCount(count + 1)
-        } className="bg-blue-600 text-white font-bold text-center w-[100px] h-[40px] text-[20px] cursor-pointer">+</button>
+    <div className="w-full h-screen flex justify-center items-center flex-col">
+      <input type="file" className="border border-gray-300 rounded-md px-4 py-2 mb-4"
+      onChange = {(e) => {
+        setImage(e.target.files[0]);
 
 
-
-      </div>
-      <div className = "w-[450px] h-[250px] shadow  flex justify-center items-center">
-        <span className="text-[20px] font-bold text-center w-[100px] h-[40px] mx-[10px] flex justify-center items-center ">
-         {status}
-        </span>
-        <div className=" text-white font-bold text-center w-[100px] h-[40px] text-[20px] cursor-pointer flex justify-center items-center m-[20px]">
-          <button
-          onClick = {()=>{
-            setStatus("Passed")
-          }} 
-          className="bg-blue-600 text-white font-bold text-center w-[100px] h-[40px] text-[20px] cursor-pointer m-[20px] ">Passed</button>
-          <button onClick = {()=>{
-            setStatus("Failed")
-          }} className="bg-red-600 text-white font-bold text-center w-[100px] h-[40px] text-[20px] cursor-pointer m-[20px]">Failed</button>
-        </div>
-       
-
-    </div>
-
-
+      }
+    }
+      />
+      <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+        Upload File
+      </button>
 
 
     </div>
-  ) 
+   
+  ) ;
 
 
 
