@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import mediaUpload from "../../utils/mediaUpload";
+import axios from "axios";
 
 
 export default function AddProductPage() {
@@ -50,6 +51,18 @@ export default function AddProductPage() {
         price : price,
         stock : stock
        }
+
+       axios.post(import.meta.env.VITE_BACKEND_URI + "/api/products", product, {
+        headers : {
+          Authorization : "Bearer " + token
+        }
+       }).then((response)=>{
+        console.log("Product added successfully:", response.data);
+        toast.success("Product added successfully");
+       }).catch((err)=>{
+        console.error("Error adding product:", err);
+        toast.error("Error adding product");
+       })
 
 
        
