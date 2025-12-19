@@ -1,4 +1,7 @@
 export default function ProductsPage() {
+  const [products, setProducts] = useState([
+    
+  ])
 
   return (
     <div className="w-full h-full bg-red-400 max-h-full overflow-y-scroll">
