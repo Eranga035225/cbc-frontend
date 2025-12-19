@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -35,11 +36,10 @@ export default function ProductsPage() {
 
   return (
     <div className="w-full h-full max-h-full overflow-y-scroll bg-amber-300 relative">
-      {/* <Link >
-        <button className="absolute top-4 right-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
-          Add New Product
-        </button>
-      </Link> */}
+      <Link to="/admin/add-product" className="absolute bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded">
+        +
+      </Link> 
+   
 
       {error && (
         <p className="text-red-500 text-center my-4">

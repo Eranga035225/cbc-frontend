@@ -21,7 +21,7 @@ return(
         <Route path="/users" element={<h1>Users</h1>}></Route>
         <Route path="/orders" element={<h1>Orders</h1>}></Route>
         <Route path="/reports" element={<h1>Reports</h1>}></Route>
-        <Route path="/add-product" element={< AddProductPage/>}></Route>
+        <Route path="/add-product" element={<AddProductPage/>}></Route>
         
       </Routes>
     </div>
