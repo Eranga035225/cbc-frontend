@@ -10,7 +10,10 @@ export default function TestPage(){
   const supabase = createClient(url, key);
 
   function fileUpload(){
-    supabase.storage.from('images').upload(image.name, image)
+    supabase.storage.from('images').upload(image.name, image, {
+      upsert: false,
+      cacheControl: '3600',
+    })
 
     
 
