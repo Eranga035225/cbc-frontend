@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { mediaUpload } from "../../utils/mediaUpload";
 
 export default function AddProductPage() {
   const [productId, setProductId] = useState("");
@@ -11,7 +12,7 @@ export default function AddProductPage() {
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
 
-  function addProduct(){
+  async function addProduct(){
     if(images.length <= 0 ){
       toast.error("Please add at least one image");
       return
@@ -19,8 +20,19 @@ export default function AddProductPage() {
 
     const promisesArray = []
     for (let i=0; i<images.length; i++){
-      promisesArray.push(
+      promisesArray[i] = mediaUpload(images[i]);
     }
+
+    try{
+       const imageUrls = await Promise.all(promisesArray)
+       console.log("Uploaded image URLs:", imageUrls);
+
+    }catch(e){
+      console.log(e)
+
+    }
+
+  
 
   }
 
@@ -110,6 +122,7 @@ export default function AddProductPage() {
 
         {/* Button */}
         <button
+        onClick={addProduct}
           className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition"
         >
           Add Product
