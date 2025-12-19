@@ -60,6 +60,7 @@ export default function AddProductPage() {
         headers : {
           Authorization : "Bearer " + token
         }
+        
        }).then((response)=>{
         console.log("Product added successfully:", response.data);
         toast.success("Product added successfully");
