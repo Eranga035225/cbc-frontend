@@ -44,7 +44,7 @@ export default function LoginPage() {
             setPassword(e.target.value);
           }
           }className="w-[300px] h-[50px] border border-[#c3efe9] rounded-[20px] mb-[20px]" type="password" value={password}></input>
-          <button  onClick={handleLogin} className="w-[300px] h-[50px] bg-[#c3efe9] rounded-[20px] text-[20px] font-bold text-white my-[20px] cursor-pointer">Login</button>
+          <button  onClick={handleLogin} className="w-[300px] h-[50px] bg-[#068b79] rounded-[20px] text-[20px] font-bold text-white my-[20px] cursor-pointer">Login</button>
 
         </div>
 
