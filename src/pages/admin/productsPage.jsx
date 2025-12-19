@@ -1,9 +1,20 @@
 import { sampleProducts } from "../../assets/sampleData";
 import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState(sampleProducts);
 
+  useEffect(
+    ()=> {
+    axios.get(import.meta.env.VITE_BACKEND_URI + "/api/products").then((response) => {
+    setProducts(response.data.products); 
+  })
+
+    }, []
+  );
+  
   return (
     <div className="w-full h-full max-h-full overflow-y-scroll">
       <table className="w-full text-center">
