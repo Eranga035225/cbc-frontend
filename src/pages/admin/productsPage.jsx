@@ -21,9 +21,15 @@ export default function ProductsPage() {
         <tbody>
           {
             products.map(
-              ()=> {
-                console.log("Hi");
+              (item)=> {
+                return(
+                  <tr>
+                    <span> {item.productId}</span>
 
+                  </tr>
+
+                );
+               
               }
             )
 
