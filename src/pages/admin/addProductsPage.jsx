@@ -4,6 +4,7 @@ import mediaUpload from "../../utils/mediaUpload";
 import axios from "axios";
 
 
+
 export default function AddProductPage() {
   const [productId, setProductId] = useState("");
   const [name, setName] = useState("");
@@ -39,12 +40,12 @@ export default function AddProductPage() {
        const imageUrls = await Promise.all(promisesArray)
        console.log("Uploaded image URLs:", imageUrls);
 
-       const altNamesArray = altNames.split(",")
+      //  const altNamesArray = altNames.Split(",")
 
        const product = {
         productId : productId,
         name : name,
-        altNames : altNamesArray,
+        altNames : altNames,
         description : description,
         images : imageUrls,
         labeledPrice : labeledPrice,
