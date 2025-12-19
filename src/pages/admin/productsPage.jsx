@@ -6,7 +6,8 @@ export default function ProductsPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token")?.replace(/"/g, "");
+
 
     if (!token) {
       setError("You are not logged in");
@@ -20,28 +21,31 @@ export default function ProductsPage() {
         },
       })
       .then((response) => {
+        console.log("Response:", response.data);
+
         setProducts(response.data || []);
 
       })
       .catch((err) => {
         console.error("API error:", err);
-        setError("Failed to load products");
+      
         setProducts([]);
       });
   }, []);
 
   return (
     <div className="w-full h-full max-h-full overflow-y-scroll bg-amber-300 relative">
+      {/* <Link >
+        <button className="absolute top-4 right-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+          Add New Product
+        </button>
+      </Link> */}
 
       {error && (
         <p className="text-red-500 text-center my-4">
           {error}
         </p>
       )}
-
-      <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition absolute bottom-4 right-4">
-         +
-      </button>
 
       <table className="w-full text-center">
         <thead>
