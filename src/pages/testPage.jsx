@@ -13,7 +13,18 @@ export default function TestPage(){
     supabase.storage.from('images').upload(image.name, image, {
       upsert: false,
       cacheControl: '3600',
-    })
+    }).then(()=>{
+      const publicUrl = supabase.storage.from('images').getPublicUrl(image.name).data.publicUrl;
+      console.log(publicUrl);
+
+    }).catch(
+      (e)=>{
+        console.log(e);
+
+      }
+    
+
+    )
 
     
 
