@@ -14,6 +14,16 @@ export default function AddProductPage() {
   const [stock, setStock] = useState(0);
 
   async function addProduct(){
+    const token = localStorage.getItem("token");
+    if(!token){
+      toast.error("Please Log in first");
+      return;
+    }
+
+
+
+
+
     if(images.length <= 0 ){
       toast.error("Please add at least one image");
       return
