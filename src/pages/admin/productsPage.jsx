@@ -19,26 +19,18 @@ export default function ProductsPage() {
 
         </thead>
         <tbody>
-          <tr>
-            <td> 1 </td>
-            <td> Sample Product 1 </td>
-            <td>
-              <img src={products[0].images} className="w-[50px] h-[50px] "/>
-            </td>
-            <td> {products[0].labeledPrice} </td>
-            <td> {products[0].price} </td>
-            <td> {products[0].stock} </td>
-          </tr>
-          <tr>
-            <td> 2 </td>
-            <td> Sample Product 2 </td>
-            <td>
-              <img src={products[1].images} className="w-[50px] h-[50px] "/>
-            </td>
-            <td> {products[1].labeledPrice} </td>
-            <td> {products[1].price} </td>
-            <td> {products[1].stock} </td>
-          </tr>
+          {
+            products.map(
+              ()=> {
+                console.log("Hi");
+
+              }
+            )
+
+
+
+
+          }
 
         </tbody>
       </table>
