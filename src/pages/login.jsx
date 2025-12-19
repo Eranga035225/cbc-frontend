@@ -10,12 +10,12 @@ export default function LoginPage() {
     console.log(email);
     console.log(password);
     try{
-         const response = await axios.post("http://localhost:5050/users/login",{
+         const response = await axios.post("http://localhost:5055/api/users/login",{
       email:email,
       password:password
     });
     // 
-    toast.success("Login success");
+    toast.success("Login success");  //if error status code is returned that goes a an error
     console.log(response);
 
     }catch(e){
@@ -29,22 +29,22 @@ export default function LoginPage() {
 
   return (
     <div className="w-full h-screen bg-[url('/login.jpg')] bg-center bg-cover flex  justify-evenly items-center">
-      <div className="w-[50%] h-full ">
+      <div className="w-[50%] h-full">
 
       </div>
 
       <div className="w-[50%] h-full flex justify-center items-center ">
         <div className="w-[400px] h-[600px] backdrop-blur-md rounded-[20px] shadow-xl flex flex-col justify-center items-center">
-          <input onChange={(e)=>{
+          <input onChange={(e)=>{ 
             setEmail(e.target.value);
           }
-          }className="w-[300px] h-[50px] border border-[#c3efe9] rounded-[20px] my-[20px]" value={email}></input>
+          } className="w-[300px] h-[50px] border border-[#c3efe9] rounded-[20px] my-[20px]" value={email}></input>
 
           <input onChange={(e)=>{
             setPassword(e.target.value);
           }
           }className="w-[300px] h-[50px] border border-[#c3efe9] rounded-[20px] mb-[20px]" type="password" value={password}></input>
-          <button onClick={handleLogin} className="w-[300px] h-[50px] bg-[#c3efe9] rounded-[20px] text-[20px] font-bold text-white my-[20px] cursor-pointer">Login</button>
+          <button  onClick={handleLogin} className="w-[300px] h-[50px] bg-[#c3efe9] rounded-[20px] text-[20px] font-bold text-white my-[20px] cursor-pointer">Login</button>
 
         </div>
 

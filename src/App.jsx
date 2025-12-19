@@ -16,7 +16,7 @@ function App() {
     <BrowserRouter>
     
        <div>
-        <Toaster position="top-right"/>
+        <Toaster position="top-left"/>
         {/* <Header/> */}
         <Routes path="/*">
           <Route path="/" element={<HomePage/>}/>
