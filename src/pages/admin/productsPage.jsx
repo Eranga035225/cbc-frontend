@@ -57,6 +57,7 @@ export default function ProductsPage() {
             <th>Labelled Price</th>
             <th>Price</th>
             <th>Stock</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -75,6 +76,7 @@ export default function ProductsPage() {
               <td>{item.labeledPrice}</td>
               <td>{item.price}</td>
               <td>{item.stock}</td>
+              <td></td>
             </tr>
           ))}
         </tbody>
