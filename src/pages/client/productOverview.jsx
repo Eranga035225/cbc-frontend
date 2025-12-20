@@ -35,7 +35,7 @@ useEffect(
   return(
   <div>
     <h1>Product Overview Page</h1>
-    <p>Product ID: {product}</p>
+    <p>Product ID: {productId}</p>
    
   </div>
 

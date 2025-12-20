@@ -4,7 +4,7 @@ export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <header className="w-full h-[72px] bg-white shadow-md sticky top-0 z-50">
+    <header className="w-full h-[72px] bg-[#A1BC98] shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
 
         {/* Logo */}
@@ -24,7 +24,7 @@ export default function Header() {
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center gap-8">
-          <Link className="nav-link" to="/">Home</Link>
+          <Link className="nav-link " to="/">Home</Link>
           <Link className="nav-link" to="/products">Products</Link>
           <Link className="nav-link" to="/about">About</Link>
           <Link className="nav-link" to="/contact">Contact</Link>
