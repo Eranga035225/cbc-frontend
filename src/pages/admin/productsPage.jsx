@@ -3,21 +3,25 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
+import { toast } from "react-hot-toast";
 
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);  
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token")?.replace(/"/g, "");
+    const token = localStorage.getItem("token");
 
 
     if (!token) {
       setError("You are not logged in");
       return;
     }
+
+    if(isLoading===true){
 
     axios
       .get(import.meta.env.VITE_BACKEND_URI + "/api/products", {
@@ -27,6 +31,7 @@ export default function ProductsPage() {
       })
       .then((response) => {
         console.log("Response:", response.data);
+        setIsLoading(false); // finished loading
 
         setProducts(response.data || []);
 
@@ -35,9 +40,32 @@ export default function ProductsPage() {
         console.error("API error:", err);
       
         setProducts([]);
+    
       });
-  }, []);
+    }
 
+  }, [
+    isLoading
+
+  ]);
+
+  function deleteProduct(productId) {
+    const token = localStorage.getItem("token");
+    if(token==null){
+      toast.error("Please Log in first");
+      return
+    }
+    axios.delete(import.meta.env.VITE_BACKEND_URI + "/api/products/" + productId, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    }).then(()=>{
+      toast.success("Product deleted successfully");
+      setIsLoading(true);
+    }).catch((err)=>{
+      toast.error("Error deleting product" + err)
+    })
+  }
   return (
     <div className="w-full h-full max-h-full overflow-y-scroll relative">
       <Link to="/admin/add-product" className="absolute bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded">
@@ -80,7 +108,7 @@ export default function ProductsPage() {
               <td>{item.price}</td>
               <td>{item.stock}</td>
               <td><div className="flex justify-center items-center w-full">
-                <FaTrash onClick = {()=> {navigate("/admin/edit-product")}} className="text-[20px] text-red-500 mx-2 cursor-pointer" /> 
+                <FaTrash onClick = {()=>{deleteProduct(item.productId)}} className="text-[20px] text-red-500 mx-2 cursor-pointer" /> 
                 <MdModeEdit onClick={()=> {navigate("/admin/edit-product", {
                   state:  item
                 }
@@ -97,3 +125,5 @@ export default function ProductsPage() {
     </div>
   );
 }
+
+
