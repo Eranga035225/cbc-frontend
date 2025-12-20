@@ -14,7 +14,7 @@ export default function HomePage() {
             <Route path="/products" element={<ProductPage />} />
             <Route path="/about" element={<h1> About </h1>} />
             <Route path="/contact" element={<h1> Contact </h1>} />
-            <Route path="/overview" element={<ProductOverviewPage />} />
+            <Route path="/overview/:id" element={<ProductOverviewPage />} />
             <Route path="/*" element={<h1>NotFound </h1>}/>
 
 
