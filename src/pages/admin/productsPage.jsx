@@ -78,6 +78,15 @@ export default function ProductsPage() {
           {error}
         </p>
       )}
+      {
+        isLoading ? 
+        <div className="w-full h-full flex justify-center items-center">
+          <div className="w-[50px] h-[50px] border-[5px] border-gray-300 border-t-blue-900 rounded-full animate-spin">
+          </div>
+
+
+        </div>
+        :
 
       <table className="w-full text-center">
         <thead>
@@ -122,6 +131,7 @@ export default function ProductsPage() {
           ))}
         </tbody>
       </table>
+}
     </div>
   );
 }
