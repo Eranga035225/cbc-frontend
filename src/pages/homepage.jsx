@@ -1,7 +1,8 @@
 export default function HomePage() {
   return (
-    <div>
-      <h1>Home Page</h1>
+    <div className="w-full h-screen flex flex-col items-center">
+
     </div>
-  );
+  )
+  
 }
