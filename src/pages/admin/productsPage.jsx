@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 
@@ -8,6 +8,7 @@ import { MdModeEdit } from "react-icons/md";
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token")?.replace(/"/g, "");
@@ -79,7 +80,8 @@ export default function ProductsPage() {
               <td>{item.price}</td>
               <td>{item.stock}</td>
               <td><div className="flex justify-center items-center w-full">
-                <FaTrash className="text-[20px] text-red-500 mx-2 cursor-pointer" /> <MdModeEdit className="text-[20px] text-blue-500 cursor-pointer" /> 
+                <FaTrash onClick = {()=> {navigate("/admin/edit-product")}} className="text-[20px] text-red-500 mx-2 cursor-pointer" /> 
+                <MdModeEdit onClick={()=> {navigate("/admin/edit-product")}}className="text-[20px] text-blue-500 cursor-pointer" /> 
 
                 </div>
 
