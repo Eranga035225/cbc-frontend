@@ -12,11 +12,12 @@ export default function ProductPage(){
   useEffect(
     () => {
       if(isLoading == true){
-        axios.get(import.meta.env.VITE_API_URL + "/api/products").then(
+        axios.get(import.meta.env.VITE_BACKEND_URL + "/api/products").then(
           (res) =>{
-            setProducts(Array.isArray(res.data) ? res.data : res.data.products || []);
+            console.log(res.data);
+            setProducts(res.data.products);
             setIsLoading(false);
-          // 
+          
           }
         )
       }
@@ -25,11 +26,11 @@ export default function ProductPage(){
   )
 
   return (
-    <div className="w-full h-full bg-red-400">
+    <div className="w-full h-full flex flex-wrap justify-center items-center bg-red-600">
       {
         products.map((product)=> {
           return(
-            <ProductCard product={product} key={product.id}/>
+            <ProductCard product={product} key={product.productId}/>
           )
 
 
