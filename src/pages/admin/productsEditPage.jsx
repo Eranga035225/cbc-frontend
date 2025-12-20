@@ -3,18 +3,20 @@ import { toast } from "react-hot-toast";
 import mediaUpload from "../../utils/mediaUpload";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
 
 export default function EditProductPage() {
-  const [productId, setProductId] = useState("");
-  const [name, setName] = useState("");
-  const [altNames, setAltNames] = useState([]);
-  const [description, setDescription] = useState("");
+  const location = useLocation();
+  const [productId, setProductId] = useState(location.state.productId);
+  const [name, setName] = useState(location.state.name);
+  const [altNames, setAltNames] = useState([location.state.altNames.join(",")]);
+  const [description, setDescription] = useState(location.state.description);
   const [images, setImages] = useState([]);
-  const [labeledPrice, setLabeledPrice] = useState(0);
-  const [price, setPrice] = useState(0);
-  const [stock, setStock] = useState(0);
+  const [labeledPrice, setLabeledPrice] = useState(location.state.labeledPrice);
+  const [price, setPrice] = useState(location.state.price);
+  const [stock, setStock] = useState(location.state.stock);
 
   const navigate = useNavigate();
 
@@ -25,22 +27,20 @@ export default function EditProductPage() {
       return;
     }
 
-
-
-
-
-    if(images.length <= 0 ){
-      toast.error("Please add at least one image");
-      return
-    }
+    let imageUrls = location.state.images;
 
     const promisesArray = []
+
     for (let i=0; i<images.length; i++){
       promisesArray[i] = mediaUpload(images[i]);
     }
 
     try{
-       const imageUrls = await Promise.all(promisesArray)
+      if(images.length > 0){
+         imageUrls = await Promise.all(promisesArray)
+
+      }
+      
        console.log("Uploaded image URLs:", imageUrls);
 
       //  const altNamesArray = altNames.Split(",")
@@ -56,19 +56,19 @@ export default function EditProductPage() {
         stock : stock
        }
 
-       axios.post(import.meta.env.VITE_BACKEND_URI + "/api/products", product, {
+       axios.put(import.meta.env.VITE_BACKEND_URI + "/api/products/"+productId, product, {
         headers : {
           Authorization : "Bearer " + token
         }
         
        }).then((response)=>{
-        console.log("Product added successfully:", response.data);
-        toast.success("Product added successfully");
+        console.log("Product updated successfully:", response.data);
+        toast.success("Product updated successfully");
         navigate("/admin/products");
 
        }).catch((err)=>{
-        console.error("Error adding product:", err);
-        toast.error("Error adding product");
+        console.error("Error updating product:", err);
+        toast.error("Error updating product");
        })
 
 
@@ -96,6 +96,7 @@ export default function EditProductPage() {
         {/* Product ID */}
         <input
           type="text"
+          disabled
           placeholder="Product ID"
           className="w-full mb-3 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
           value={productId}

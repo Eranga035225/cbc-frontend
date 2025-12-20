@@ -81,7 +81,11 @@ export default function ProductsPage() {
               <td>{item.stock}</td>
               <td><div className="flex justify-center items-center w-full">
                 <FaTrash onClick = {()=> {navigate("/admin/edit-product")}} className="text-[20px] text-red-500 mx-2 cursor-pointer" /> 
-                <MdModeEdit onClick={()=> {navigate("/admin/edit-product")}}className="text-[20px] text-blue-500 cursor-pointer" /> 
+                <MdModeEdit onClick={()=> {navigate("/admin/edit-product", {
+                  state:  item
+                }
+
+                )}}className="text-[20px] text-blue-500 cursor-pointer" /> 
 
                 </div>
 
