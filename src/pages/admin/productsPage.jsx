@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { FaTrash } from "react-icons/fa";
+import { MdModeEdit } from "react-icons/md";
 
 
 export default function ProductsPage() {
@@ -76,7 +78,12 @@ export default function ProductsPage() {
               <td>{item.labeledPrice}</td>
               <td>{item.price}</td>
               <td>{item.stock}</td>
-              <td></td>
+              <td><div className="flex justify center items-center w-full">
+                <FaTrash /> <MdModeEdit />
+
+                </div>
+
+              </td>
             </tr>
           ))}
         </tbody>
