@@ -16,7 +16,7 @@ return(
       <Link to="/admin/reports">Reports</Link>
 
     </div>
-    <div className="h-full w-[calc(100%-300px)]  bg-yellow-400">
+    <div className="h-full w-[calc(100%-300px)]">
       <Routes path="/*">
         <Route path="/products" element={<ProductsPage />}></Route>
         <Route path="/users" element={<h1>Users</h1>}></Route>

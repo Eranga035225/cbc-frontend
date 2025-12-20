@@ -38,7 +38,7 @@ export default function ProductsPage() {
   }, []);
 
   return (
-    <div className="w-full h-full max-h-full overflow-y-scroll bg-amber-300 relative">
+    <div className="w-full h-full max-h-full overflow-y-scroll relative">
       <Link to="/admin/add-product" className="absolute bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded">
         +
       </Link> 
@@ -78,8 +78,8 @@ export default function ProductsPage() {
               <td>{item.labeledPrice}</td>
               <td>{item.price}</td>
               <td>{item.stock}</td>
-              <td><div className="flex justify center items-center w-full">
-                <FaTrash /> <MdModeEdit />
+              <td><div className="flex justify-center items-center w-full">
+                <FaTrash className="text-[20px] text-red-500 mx-2 cursor-pointer" /> <MdModeEdit className="text-[20px] text-blue-500 cursor-pointer" /> 
 
                 </div>
 
