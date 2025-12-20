@@ -49,7 +49,7 @@ export default function ProductCard({ product }) {
         <button
           className="mt-3 w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition"
         >
-          View Product
+          Buy Now
         </button>
       </div>
     </div>
