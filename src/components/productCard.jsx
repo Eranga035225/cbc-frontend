@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 export default function ProductCard({ product }) {
   return (
-    <div className="w-[280px] bg-white rounded-xl shadow-md m-3 overflow-hidden hover:shadow-xl transition duration-300">
+    <Link to={`/overview/${product.productId}`} className="w-[280px] bg-white rounded-xl shadow-md m-3 overflow-hidden hover:shadow-xl transition duration-300">
       
       {/* Product Image */}
       <div className="w-full h-[180px] bg-gray-100 flex items-center justify-center">
@@ -52,6 +54,6 @@ export default function ProductCard({ product }) {
           Buy Now
         </button>
       </div>
-    </div>
+    </Link>
   );
 }
