@@ -33,7 +33,7 @@ useEffect(
   }, [])
 
   return(
-  <div>
+  <div className="bg-secondary min-h-screen p-8 font-fancy">
     <h1>Product Overview Page</h1>
     <p>Product ID: {productId}</p>
    
