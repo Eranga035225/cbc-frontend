@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import ImageSlider from "../../components/imageSlider";
+
 export default function ProductOverviewPage(){
 
 const params =   useParams()
@@ -34,13 +36,19 @@ useEffect(
 
 
   return(
+    <>
+    {
+      status == "success" &&
   <div className="bg-secondary  w-full h-full flex">
     <div className="w-[50% h-full ">
+       <ImageSlider image={product.images}/>
     </div>
      <div className="w-[50%] h-full ">
     </div>
   </div>
-
+}
+    </>
   ) 
+
 
 } 
