@@ -31,13 +31,14 @@ useEffect(
 
 
   }, [])
-  
+
 
   return(
-  <div className="bg-secondary min-h-screen p-8 font-fancy">
-    <h1>Product Overview Page</h1>
-    <p>Product ID: {productId}</p>
-   
+  <div className="bg-secondary  w-full h-full flex">
+    <div className="w-[50% h-full ">
+    </div>
+     <div className="w-[50%] h-full ">
+    </div>
   </div>
 
   ) 
