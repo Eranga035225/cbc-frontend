@@ -31,6 +31,7 @@ useEffect(
 
 
   }, [])
+  
 
   return(
   <div className="bg-secondary min-h-screen p-8 font-fancy">
