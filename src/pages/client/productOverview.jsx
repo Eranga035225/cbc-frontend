@@ -45,7 +45,11 @@ useEffect(
           <div className="w-[50% h-full ">
             <ImageSlider images={product.images}/>
           </div>
-          <div className="w-[50%] h-full ">
+          <div className="w-[50%] flex justify-center items-center h-full">
+            <div className="w-[500px] h-[600px] flex-col items-center">
+                <h1 className="w-full text-center text-3xl text-black font-semibold  ">{product.name}</h1>
+            </div>
+            
           </div>
         </div>
 }
