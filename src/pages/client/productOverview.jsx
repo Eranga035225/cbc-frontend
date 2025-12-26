@@ -40,75 +40,67 @@ useEffect(
  return (
   <>
     {status === "success" && (
-      <div className="min-h-screen w-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-6">
-        <div className="w-full max-w-6xl bg-white rounded-3xl shadow-xl flex flex-col md:flex-row gap-8 p-8">
+      <div className="min-h-screen w-full bg-secondary flex items-center justify-center p-6 font-fancy">
+  <div className="w-full max-w-6xl bg-white rounded-3xl shadow-xl flex flex-col md:flex-row gap-8 p-8">
 
-          {/* LEFT : IMAGE SLIDER */}
-          <div className="md:w-1/2 w-full flex justify-center items-center">
-            <ImageSlider images={product.images} />
-          </div>
+    {/* Image */}
+    <div className="md:w-1/2 w-full flex justify-center items-center">
+      <ImageSlider images={product.images} />
+    </div>
 
-          {/* RIGHT : PRODUCT DETAILS */}
-          <div className="md:w-1/2 w-full flex justify-center items-center">
-            <div className="w-full max-w-md flex flex-col gap-4">
+    {/* Details */}
+    <div className="md:w-1/2 w-full flex justify-center items-center">
+      <div className="w-full max-w-md flex flex-col gap-4">
 
-              {/* PRODUCT NAME */}
-              <h1 className="text-3xl font-bold text-gray-900 text-center">
-                {product.name}
-                {product.altNames.map((altName, index) => (
-                  <span
-                    key={index}
-                    className="text-lg font-normal text-gray-500"
-                  >
-                    {" / " + altName}
-                  </span>
-                ))}
-              </h1>
+        <h1 className="text-3xl font-bold text-primary text-center">
+          {product.name}
+          {product.altNames.map((altName, index) => (
+            <span key={index} className="text-lg font-normal text-gray-500">
+              {" / " + altName}
+            </span>
+          ))}
+        </h1>
 
-              {/* PRODUCT CODE */}
-              <h2 className="text-center text-sm tracking-widest text-gray-500 uppercase">
-                {product.productId}
-              </h2>
+        <h2 className="text-center text-sm tracking-widest text-gray-500 uppercase">
+          {product.productId}
+        </h2>
 
-              {/* DESCRIPTION */}
-              <p className="text-center text-gray-600 leading-relaxed mt-2">
-                {product.description}
-              </p>
+        <p className="text-center text-gray-600 leading-relaxed">
+          {product.description}
+        </p>
 
-              {/* PRICE SECTION */}
-              <div className="mt-6 text-center">
-                {product.labeledPrice > product.price && (
-                  <div className="flex justify-center items-center gap-4">
-                    <span className="text-xl text-gray-400 line-through">
-                      Rs.{product.labeledPrice.toFixed(2)}
-                    </span>
-                    <span className="text-3xl font-bold text-accent">
-                      Rs.{product.price.toFixed(2)}
-                    </span>
-                  </div>
-                )}
-
-                {product.labeledPrice <= product.price && (
-                  <span className="text-3xl font-bold text-accent">
-                    Rs.{product.price.toFixed(2)}
-                  </span>
-                )}
-              </div>
-
-              {/* CTA BUTTON */}
-              <div className="mt-6 flex justify-center">
-                <button className="px-8 py-3 rounded-full mx-3 cursor-pointer bg-accent text-white font-semibold shadow-lg hover:scale-105 transition-all duration-300">
-                  Add to Cart
-                </button>
-                <button className="px-8 py-3 rounded-full mx-3 cursor-pointer bg-accent text-white font-semibold shadow-lg hover:scale-105 transition-all duration-300">
-                  Buy Now
-                </button>
-              </div>
-
+        <div className="mt-6 text-center">
+          {product.labeledPrice > product.price && (
+            <div className="flex justify-center items-center gap-4">
+              <span className="text-xl text-gray-400 line-through">
+                Rs.{product.labeledPrice.toFixed(2)}
+              </span>
+              <span className="text-3xl font-bold text-accent">
+                Rs.{product.price.toFixed(2)}
+              </span>
             </div>
-          </div>
+          )}
+
+          {product.labeledPrice <= product.price && (
+            <span className="text-3xl font-bold text-accent">
+              Rs.{product.price.toFixed(2)}
+            </span>
+          )}
         </div>
+
+        <div className="mt-6 flex justify-center">
+          <button className="px-8 py-3 rounded-full bg-accent text-white font-semibold
+          shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300">
+            Add to Cart
+          </button>
+        </div>
+
       </div>
+    </div>
+  </div>
+</div>
+
+      
     )}
 
     {status === "loading" && <Loading />}

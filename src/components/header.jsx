@@ -4,48 +4,57 @@ export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <header className="w-full h-[72px] bg-[#A1BC98] shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+    <header className="w-full h-[72px] sticky top-0 z-50 bg-white shadow-md">
+  <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between font-fancy">
 
-        {/* Logo */}
-        <div
-          onClick={() => navigate("/")}
-          className="flex items-center gap-2 cursor-pointer"
+    {/* Logo */}
+    <div
+      onClick={() => navigate("/")}
+      className="flex items-center gap-3 cursor-pointer group"
+    >
+      <img
+        src="/logo.jpg"
+        alt="Logo"
+        className="w-12 h-12 rounded-full object-cover ring-2 ring-primary group-hover:scale-105 transition-all duration-300"
+      />
+      <span className="text-xl font-bold text-primary tracking-wide">
+        Beauty Cosmetics
+      </span>
+    </div>
+
+    {/* Navigation */}
+    <nav className="hidden md:flex items-center gap-10">
+      {["Home", "Products", "About", "Contact"].map((item, index) => (
+        <Link
+          key={index}
+          to={`/${item === "Home" ? "" : item.toLowerCase()}`}
+          className="text-gray-700 font-medium hover:text-primary transition relative
+          after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0
+          after:h-[2px] after:bg-primary hover:after:w-full after:transition-all"
         >
-          <img
-            src="/logo.jpg"
-            alt="Logo"
-            className="w-15 h-15 rounded-full object-cover"
-          />
-          <span className="text-xl font-bold text-gray-800">
-            Beauty Cosmetics
-          </span>
-        </div>
+          {item}
+        </Link>
+      ))}
+    </nav>
 
-        {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          <Link className="nav-link " to="/">Home</Link>
-          <Link className="nav-link" to="/products">Products</Link>
-          <Link className="nav-link" to="/about">About</Link>
-          <Link className="nav-link" to="/contact">Contact</Link>
-        </nav>
+    {/* Right Action */}
+    <div className="flex items-center gap-4">
+      <button
+        onClick={() => navigate("/login")}
+        className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-primary transition"
+      >
+        Login
+      </button>
+      <button
+        onClick={() => navigate("/register")}
+        className="px-6 py-2 rounded-full bg-primary text-white text-sm font-semibold
+        shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
+      >
+        Get Started
+      </button>
+    </div>
+  </div>
+</header>
 
-        {/* Right Action */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => navigate("/login")}
-            className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-black transition"
-          >
-            Login
-          </button>
-          <button
-            onClick={() => navigate("/register")}
-            className="px-5 py-2 rounded-full bg-black text-white text-sm font-semibold hover:bg-gray-800 transition"
-          >
-            Get Started
-          </button>
-        </div>
-      </div>
-    </header>
   );
 }

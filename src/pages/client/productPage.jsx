@@ -21,38 +21,41 @@ export default function ProductPage(){
     },[isLoading]
   )
 
-  return (
-    <div className="w-full min-h-screen bg-gray-100 py-10 px-6">
-      
-      {/* Page Header */}
-      <div className="max-w-7xl mx-auto mb-10 text-center">
-        <h1 className="text-3xl font-bold text-gray-800">
-          Our Products
-        </h1>
-        <p className="text-gray-500 mt-2">
-          Browse our collection of high quality products
-        </p>
-      </div>
-      
 
-      {/* Loading */}
-      {isLoading && (
-        <div className="flex justify-center items-center mt-20">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-800"></div>
-        </div>
-      )}
+   return (
+  <div className="w-full min-h-screen bg-secondary py-12 px-6 font-fancy">
 
-      {/* Products Grid */}
-      {!isLoading && (
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <ProductCard
-              product={product}
-              key={product.productId}
-            />
-          ))}
-        </div>
-      )}
+    {/* Page Header */}
+    <div className="max-w-7xl mx-auto mb-12 text-center">
+      <h1 className="text-4xl font-bold text-primary">
+        Our Products
+      </h1>
+      <p className="text-gray-600 mt-3">
+        Browse our collection of high quality products
+      </p>
+      <div className="w-20 h-1 bg-accent mx-auto mt-4 rounded-full"></div>
     </div>
-  )
+
+    {/* Loading */}
+    {isLoading && (
+      <div className="flex justify-center items-center mt-24">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-transparent"></div>
+      </div>
+    )}
+
+    {/* Products Grid */}
+    {!isLoading && (
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {products.map((product) => (
+          <ProductCard
+            product={product}
+            key={product.productId}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+);
+
+  
 }
