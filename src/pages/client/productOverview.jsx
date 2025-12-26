@@ -47,7 +47,24 @@ useEffect(
           </div>
           <div className="w-[50%] flex justify-center items-center h-full">
             <div className="w-[500px] h-[600px] flex-col items-center">
-                <h1 className="w-full text-center text-3xl text-black font-semibold  ">{product.name}</h1>
+                <h1 className="w-full text-center text-3xl text-black font-semibold  ">{product.name}
+                  {
+                    product.altNames.map((altName,index)=> {
+                      return (
+                        <span key={index} className="text-xl text-gray-600 font-normal">, {" / "+altName}</span>  
+                      )
+                    }
+                  )
+                  }
+                
+
+
+
+
+                </h1>
+                <h2 className="w-full text-center text text-gray-700 font-semibold mt-4">{product.productId}</h2>
+                <p className="w-full text-center text text-gray-700 mt-4">{product.description}</p>
+                
             </div>
             
           </div>
