@@ -40,13 +40,13 @@ useEffect(
     <>
     {
       status == "success" &&
-  <div className="bg-secondary  w-full h-full flex">
-    <div className="w-[50% h-full ">
-       <ImageSlider image={product.images}/>
-    </div>
-     <div className="w-[50%] h-full ">
-    </div>
-  </div>
+        <div className="bg-secondary  w-full h-full flex items-center justify-center p-4 gap-4">
+          <div className="w-[50% h-full ">
+            <ImageSlider image={product.images}/>
+          </div>
+          <div className="w-[50%] h-full ">
+          </div>
+        </div>
 }
 {
   status== "loading" && 
