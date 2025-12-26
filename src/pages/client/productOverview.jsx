@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import ImageSlider from "../../components/imageSlider";
+import Loading from "../../components/loading";
 
 export default function ProductOverviewPage(){
 
@@ -46,6 +47,10 @@ useEffect(
      <div className="w-[50%] h-full ">
     </div>
   </div>
+}
+{
+  status== "loading" && 
+  <Loading/>
 }
     </>
   ) 
