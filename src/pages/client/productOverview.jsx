@@ -6,6 +6,8 @@ import { toast } from "react-hot-toast";
 import ImageSlider from "../../components/imageSlider";
 import Loading from "../../components/loading";
 
+import { addToCart } from "../../utils/cart";
+
 
 export default function ProductOverviewPage(){
 
@@ -66,17 +68,17 @@ useEffect(
             ))}
           </h1>
 
-          {/* Product ID */}
+         
           <h2 className="text-sm tracking-widest uppercase text-gray-500">
             {product.productId}
           </h2>
 
-          {/* Description */}
+         
           <p className="text-center text-gray-600 leading-relaxed">
             {product.description}
           </p>
 
-          {/* Price */}
+        
           <div className="mt-4">
             {product.labeledPrice > product.price && (
               <div className="flex items-center gap-4">
@@ -96,11 +98,21 @@ useEffect(
             )}
           </div>
 
-          {/* Button */}
+         
           <button
             className="mt-6 px-8 py-3 rounded-full bg-primary text-white
             font-semibold shadow-md hover:shadow-lg hover:scale-[1.03]
             transition-all duration-300"
+
+            onClick = {
+              ()=> {
+                // console.log(getCart());
+                addToCart(product,1);
+                toast.success("Product added to cart!");
+              
+
+              }
+            }
           >
             Add to Cart
           </button>
