@@ -5,7 +5,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import ImageSlider from "../../components/imageSlider";
 import Loading from "../../components/loading";
-
+import { getCart } from "../../utils/cart";
 import { addToCart } from "../../utils/cart";
 
 
@@ -106,7 +106,7 @@ useEffect(
 
             onClick = {
               ()=> {
-                // console.log(getCart());
+                console.log(getCart());
                 addToCart(product,1);
                 toast.success("Product added to cart!");
               

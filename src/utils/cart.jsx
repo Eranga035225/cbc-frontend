@@ -37,9 +37,11 @@ export function addToCart(product,quantity){
     }
   }else{
     const newQuantity = cart[index].quantity + quantity;
-    if(newQuantity > 0 ){
+    if(newQuantity <= 0 ){
       removeFromCart(product.productId);
       return;
+
+    
     }else{
       cart[index].quantity = newQuantity;
     }
