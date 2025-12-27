@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { getCart } from "../../utils/cart";
+import { BiTrash } from "react-icons/bi";
+
+
+
 
 
 export default function CartPage(){
@@ -12,7 +16,7 @@ export default function CartPage(){
             (item)=> {
       return (
     <div key={item.productId} className="w-[750px] h-[100px] rounded-tl-3xl bg-white shadow-2xl
-      flex flex-row items-center font-fancy my-3 ">
+      flex flex-row items-center font-fancy my-3 relative ">
     
         <img src={item.image} className="w-[100px] h-[100px] object-cover rounded-3xl"
           alt={item.name}
@@ -66,9 +70,13 @@ export default function CartPage(){
             +
           </button>
 
-            <h1 className="text-lg font-bold text-primary min-w-[20px] text-center ml-5">
+          <h1 className="text-lg font-bold text-primary min-w-[20px] text-center ml-5">
             Rs.{(item.quantity*item.price).toFixed(2)}
           </h1>
+
+          <button className="absolute text-red-600 cursor-pointer text-2xl hover:bg-red-600 hover:text-white rounded-full p-2 right-[-40px] ">
+            <BiTrash/>
+          </button>
 
         </div>
 
