@@ -32,6 +32,7 @@ export function addToCart(product,quantity){
       name: product.name,
       image: product.images[0],
       price: product.price,
+      labeledPrice: product.labeledPrice, 
       quantity: quantity
 
     }
