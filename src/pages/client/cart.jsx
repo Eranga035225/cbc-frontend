@@ -11,8 +11,8 @@ export default function CartPage(){
           cart.map(
             (item)=> {
       return (
-    <div key={item.productId} className="w-[600px] h-[100px] rounded-tl-3xl bg-white shadow-2xl
-      flex flex-row items-center font-fancy my-3">
+    <div key={item.productId} className="w-[750px] h-[100px] rounded-tl-3xl bg-white shadow-2xl
+      flex flex-row items-center font-fancy my-3 ">
     
         <img src={item.image} className="w-[100px] h-[100px] object-cover rounded-3xl"
           alt={item.name}
@@ -38,7 +38,7 @@ export default function CartPage(){
         }
 
       </div>
-     <div className="w-[100px] h-[100px] flex items-center justify-center gap-3 mr-3">
+     <div className="w-[200px] h-[100px] flex items-center justify-between gap-3 mr-3">
 
           <button
             className="w-[36px] h-[36px] rounded-full
@@ -65,6 +65,10 @@ export default function CartPage(){
           >
             +
           </button>
+
+            <h1 className="text-lg font-bold text-primary min-w-[20px] text-center ml-5">
+            Rs.{(item.quantity*item.price).toFixed(2)}
+          </h1>
 
         </div>
 
