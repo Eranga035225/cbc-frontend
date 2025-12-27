@@ -35,7 +35,8 @@ export function addToCart(product,quantity){
   }else{
     const newQuantity = cart[index].quantity + quantity;
     if(newQuantity > 0 ){
-      //remove item from cart
+      removeFromCart(product.productId);
+      return;
     }else{
       cart[index].quantity = newQuantity;
     }
@@ -46,3 +47,19 @@ export function addToCart(product,quantity){
 
 
 }
+
+
+//function to remove item from cart
+export function removeFromCart(productId){
+  let cart = getCart();
+  const newCart = cart.filter(
+    (item)=> {
+      return item.productId != productId
+    }
+
+  );
+  localStorage.setItem("cart", JSON.stringify(newCart));
+
+}
+
+
