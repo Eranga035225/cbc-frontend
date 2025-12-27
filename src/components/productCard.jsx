@@ -21,7 +21,7 @@ export default function ProductCard({ product }) {
       <div className="p-4 flex flex-col gap-2">
 
         {/* Name */}
-        <h2 className="text-lg font-semibold text-gray-800 line-clamp-2">
+        <h2 className="text-lg font-semibold text-primary line-clamp-2">
           {product.name}
         </h2>
 
@@ -35,7 +35,7 @@ export default function ProductCard({ product }) {
           <span className="text-xl font-bold text-accent">
             Rs. {product.price}
           </span>
-          <span className="text-sm line-through text-gray-400">
+          <span className="text-sm line-through text-danger">
             Rs. {product.labeledPrice}
           </span>
         </div>
@@ -45,7 +45,7 @@ export default function ProductCard({ product }) {
           className={`text-xs font-semibold px-3 py-1 rounded-full w-fit mt-1 ${
             product.isAvailable
               ? "bg-green-100 text-green-700"
-              : "bg-red-100 text-red-700"
+              : "bg-red-100 text-danger"
           }`}
         >
           {product.isAvailable ? "In Stock" : "Out of Stock"}

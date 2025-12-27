@@ -20,9 +20,7 @@ export default function ProductPage(){
       }
     },[isLoading]
   )
-
-
-   return (
+return (
   <div className="w-full min-h-screen bg-secondary py-12 px-6 font-fancy">
 
     {/* Page Header */}
@@ -33,13 +31,14 @@ export default function ProductPage(){
       <p className="text-gray-600 mt-3">
         Browse our collection of high quality products
       </p>
-      <div className="w-20 h-1 bg-accent mx-auto mt-4 rounded-full"></div>
+
+    
     </div>
 
     {/* Loading */}
     {isLoading && (
       <div className="flex justify-center items-center mt-24">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-transparent"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-danger"></div>
       </div>
     )}
 

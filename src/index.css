@@ -3,11 +3,12 @@
 
 
 
-@theme{
-  --color-primary: #658C58;
-  --color-secondary: #EFECE3;
-  --color-accent: #658C58;
-   --font-fancy: "Open Sans", sans-serif; 
+@theme {
+  --color-primary: #111111;      /* Premium black */
+  --color-secondary: #F9FAFB;    /* Clean background */
+  --color-accent: #8AB6D6;       /* Soft skincare blue */
+  --color-danger: #C94A4A;       /* Beauty red */
+  --font-fancy: "Open Sans", sans-serif;
 }
 
 
