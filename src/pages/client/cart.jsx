@@ -59,6 +59,7 @@ export default function CartPage(){
                             onClick={
                               ()=> {
                                 addToCart(item,1)
+                                //to refresh the page automatically after adding to cart
                                 setCart(getCart())
                               }
                             }
