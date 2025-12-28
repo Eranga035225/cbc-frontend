@@ -32,24 +32,17 @@ export function addToCart(product,quantity){
       price: product.price,
       labeledPrice: product.labeledPrice, 
       quantity: quantity
-
     }
   }else{
     const newQuantity = cart[index].quantity + quantity;
     if(newQuantity <= 0 ){
       removeFromCart(product.productId);
       return;
-
-    
     }else{
       cart[index].quantity = newQuantity;
     }
   }
   localStorage.setItem("cart", JSON.stringify(cart));
-
-
-
-
 }
 
 
