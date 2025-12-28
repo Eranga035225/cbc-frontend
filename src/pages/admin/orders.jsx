@@ -13,30 +13,43 @@ export default function AdminOrderPage() {
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
-    if (isLoading) {
-      const token = localStorage.getItem("token");
+    if (!isLoading) return;
 
-      if (!token) {
-        toast.error("Please log in first");
-        return;
-      }
-
-      axios
-        .get(import.meta.env.VITE_BACKEND_URI + "/api/orders", {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
-        .then((res) => {
-          setOrders(res.data);
-          setIsLoading(false);
-        })
-        .catch((e) => {
-          toast.error(e.response?.data?.message || "Failed to load orders");
-          setIsLoading(false);
-        });
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Please log in first");
+      return;
     }
+
+    axios
+      .get(import.meta.env.VITE_BACKEND_URI + "/api/orders", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        setOrders(res.data);
+        setIsLoading(false);
+      })
+      .catch((e) => {
+        toast.error(e.response?.data?.message || "Failed to load orders");
+        setIsLoading(false);
+      });
   }, [isLoading]);
+
+  function openOrderModal(order) {
+    setSelectedOrder(order);
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
+    setSelectedOrder(null);
+  }
+
+  function printOrder() {
+    window.print();
+  }
 
   const statusStyle = (status) => {
     switch (status?.toLowerCase()) {
@@ -52,24 +65,12 @@ export default function AdminOrderPage() {
     }
   };
 
-  function openOrderModal(order) {
-    setSelectedOrder(order);
-    setIsModalOpen(true);
-  }
-
-  function closeModal() {
-    setIsModalOpen(false);
-    setSelectedOrder(null);
-  }
-
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
 
       {/* HEADER */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">
-          Orders
-        </h1>
+        <h1 className="text-2xl font-bold text-gray-800">Orders</h1>
         <p className="text-sm text-gray-400">
           Manage customer orders
         </p>
@@ -84,13 +85,11 @@ export default function AdminOrderPage() {
       ) : (
         <div className="bg-white rounded-2xl shadow-md border overflow-x-auto">
           <table className="min-w-full text-sm">
-            <thead className="bg-gray-50 border-b sticky top-0 z-10">
+            <thead className="bg-gray-50 border-b">
               <tr className="text-gray-600 uppercase tracking-wide text-xs">
                 <th className="px-6 py-4 text-left">Order ID</th>
                 <th className="px-6 py-4 text-left">Customer</th>
                 <th className="px-6 py-4 text-left">Email</th>
-                <th className="px-6 py-4 text-left">Address</th>
-                <th className="px-6 py-4 text-left">Phone</th>
                 <th className="px-6 py-4 text-right">Total (Rs)</th>
                 <th className="px-6 py-4 text-center">Date</th>
                 <th className="px-6 py-4 text-center">Status</th>
@@ -111,19 +110,11 @@ export default function AdminOrderPage() {
                   <td className="px-6 py-4 text-gray-600">
                     {order.email}
                   </td>
-                  <td className="px-6 py-4 text-gray-600 max-w-xs truncate">
-                    {order.address}
-                  </td>
-                  <td className="px-6 py-4 text-gray-600">
-                    {order.phone}
-                  </td>
-                  <td className="px-6 py-4 text-right font-semibold text-primary">
-                    {order.total?.toFixed(2)}
+                  <td className="px-6 py-4 text-right font-semibold">
+                    Rs. {order.total.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 text-center text-gray-500">
-                    {order.date
-                      ? new Date(order.date).toLocaleDateString()
-                      : "-"}
+                    {new Date(order.date).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 text-center">
                     <span
@@ -145,20 +136,23 @@ export default function AdminOrderPage() {
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full mx-auto mt-24 p-6 outline-none"
-        overlayClassName="fixed inset-0 bg-black/40 flex items-start justify-center z-50"
+        className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full mx-auto p-6 outline-none"
+        overlayClassName="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
       >
         {selectedOrder && (
-          <div className="space-y-6">
+          <div
+            id="order-print-area"
+            className="space-y-6 max-h-[80vh] overflow-y-auto"
+          >
 
             {/* MODAL HEADER */}
             <div className="flex justify-between items-center border-b pb-3">
-              <h2 className="text-xl font-bold text-gray-800">
+              <h2 className="text-xl font-bold">
                 Order {selectedOrder.orderId}
               </h2>
               <button
                 onClick={closeModal}
-                className="text-gray-500 hover:text-gray-800 text-xl"
+                className="text-xl text-gray-500 hover:text-black no-print"
               >
                 ✕
               </button>
@@ -198,14 +192,12 @@ export default function AdminOrderPage() {
 
             {/* PRODUCTS */}
             <div>
-              <h3 className="font-semibold text-gray-700 mb-2">
-                Products
-              </h3>
+              <h3 className="font-semibold mb-2">Products</h3>
               <div className="space-y-2">
                 {selectedOrder.products.map((p, i) => (
                   <div
                     key={i}
-                    className="flex justify-between text-sm border rounded-lg px-4 py-2"
+                    className="flex justify-between border rounded-xl px-4 py-2 text-sm"
                   >
                     <span>
                       {p.productInfo.name} × {p.quantity}
@@ -219,11 +211,26 @@ export default function AdminOrderPage() {
             </div>
 
             {/* TOTAL */}
-            <div className="flex justify-end border-t pt-4">
-              <p className="text-lg font-bold text-primary">
-                Total: Rs. {selectedOrder.total.toFixed(2)}
-              </p>
+            <div className="flex justify-end text-lg font-bold">
+              Total: Rs. {selectedOrder.total.toFixed(2)}
             </div>
+
+            {/* ACTIONS */}
+            <div className="flex justify-end gap-4 border-t pt-4 no-print">
+              <button
+                onClick={printOrder}
+                className="px-6 py-2 rounded-xl bg-gray-100 hover:bg-gray-200"
+              >
+                🖨 Print
+              </button>
+              <button
+                onClick={closeModal}
+                className="px-6 py-2 rounded-xl bg-primary text-white hover:bg-accent"
+              >
+                Close
+              </button>
+            </div>
+
           </div>
         )}
       </Modal>
