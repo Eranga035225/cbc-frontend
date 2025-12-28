@@ -11,7 +11,7 @@ export default function AdminPage() {
     { name: "Products", path: "/admin/products" },
     { name: "Users", path: "/admin/users" },
     { name: "Orders", path: "/admin/orders" },
-    { name: "Reports", path: "/admin/reports" },
+    { name: "Reviews", path: "/admin/reviews" },
   ];
 
   return (
@@ -64,7 +64,7 @@ export default function AdminPage() {
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/users" element={<h1 className="p-6">Users</h1>} />
           <Route path="/orders" element={<AdminOrderPage />} />
-          <Route path="/reports" element={<h1 className="p-6">Reports</h1>} />
+          <Route path="/reviews" element={<h1 className="p-6">Reviews</h1>} />
           <Route path="/add-product" element={<AddProductPage />} />
           <Route path="/edit-product" element={<EditProductPage />} />
         </Routes>
