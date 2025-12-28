@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Loading from "../../components/loading";
+import Modal from 'react-modal';
 
 export default function AdminOrderPage() {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (isLoading) {
@@ -68,6 +70,12 @@ export default function AdminOrderPage() {
         </div>
       ) : (
         <div className="bg-white rounded-2xl shadow-md border overflow-x-auto">
+           <Modal
+              isOpen={isModalOpen}
+              onAfterOpen={()=> {}}
+              onRequestClose={()=> {setIsModalOpen(false)}}
+              contentLabel="Example Modal"
+            />
 
           <table className="min-w-full text-sm">
             <thead className="bg-gray-50 border-b sticky top-0 z-10">
@@ -86,6 +94,7 @@ export default function AdminOrderPage() {
             <tbody>
               {orders.map((order, index) => (
                 <tr
+                onClick={()=> {setIsModalOpen(true)}}
                   key={index}
                   className="border-b hover:bg-gray-50 transition"
                 >
