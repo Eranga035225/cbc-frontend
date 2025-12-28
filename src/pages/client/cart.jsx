@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getCart } from "../../utils/cart";
+import { addToCart, getCart } from "../../utils/cart";
 import { BiTrash } from "react-icons/bi";
 
 export default function CartPage(){
@@ -56,6 +56,11 @@ export default function CartPage(){
           </h1>
 
           <button
+            onClick={
+              ()=> {
+                addToCart()
+              }
+            }
             className="w-[36px] h-[36px] rounded-full
             bg-primary text-white text-xl font-semibold
             flex items-center justify-center
