@@ -30,11 +30,11 @@ export default function CartPage(){
                         {
                           item.labeledPrice > item.price ?
                           <div>
-                            <span className="text-md mx-1 text-gray-500 line-through ">{item.labeledPrice.toFixed(2)}</span>
-                            <span className="text-md mx-1 font-bold text-accent">{item.price.toFixed(2)}</span>
+                            <span className="text-md mx-1 text-gray-500 line-through ">Rs.{item.labeledPrice.toFixed(2)}</span>
+                            <span className="text-md mx-1 font-bold text-accent">Rs.{item.price.toFixed(2)}</span>
                           </div>
 
-                          : <span className="text-md mx-1 font-bold text-accent">{item.price.toFixed(2)}</span>
+                          : <span className="text-md mx-1 font-bold text-accent">Rs.{item.price.toFixed(2)}</span>
                         }
 
                       </div>
