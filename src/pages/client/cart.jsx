@@ -37,7 +37,7 @@ export default function CartPage(){
                         />
 
                       <div className="w-[400px] h-[100px] flex flex-col justify-center pl-4">
-                        <h1 className="text-xl font-bold text-primary">
+                        <h1 className="text-xl font-bold text-primary font-fancy">
                           {item.name}
                         </h1>
 
