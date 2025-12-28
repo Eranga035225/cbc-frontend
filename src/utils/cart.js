@@ -1,22 +1,15 @@
 
 
 export function getCart(){
-  let cart = localStorage.getItem("cart");
-  
 
+  let cart = localStorage.getItem("cart");
   if(cart==null){
     cart = []  //assigns an empty array
     localStorage.setItem("cart", JSON.stringify(cart)); //converts to a string and save in the local storage
   }else{
-    cart = JSON.parse(cart);
-
+    cart = JSON.parse(cart);  //converts the strings in the local storage to an array
   }
-
   return cart
-
-
-
-
 }
 
 //function to add a product
