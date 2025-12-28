@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { addToCart, getCart, removeFromCart } from "../../utils/cart";
 import { BiTrash } from "react-icons/bi";
-import { getTotal } from "../../utils/cart";
-  import { Link } from "react-router-dom";
 
-export default function CartPage(){
-  const [cart,setCart] = useState(getCart());
+
+
+export default function CheckOutPage(){
+  
+
+
+  const [cart,setCart] = useState([]);
 
   return(
     <div className="w-full h-full flex flex-col items-center pt-4 my-3 relative"> 
@@ -15,35 +17,31 @@ export default function CartPage(){
             font-fancy border border-gray-100"
           >
             <span className="text-xs uppercase tracking-widest text-gray-500">
-              Cart Total
+             
             </span>
 
             <p className="text-2xl font-bold text-primary">
-              Rs.
+             
               <span className="text-accent ml-2">
-                {getTotal().toFixed(2)}
+               
               </span>
             </p>
 
-          
-
-                <Link
-                  to="/checkout"
-                  state={{
-                    cart: cart
-                    
-                  }}
-                  className="block w-full mt-3
-                  bg-primary text-white text-center
-                  py-2.5 rounded-xl
-                  font-semibold font-fancy
-                  shadow-md hover:shadow-lg
-                  hover:bg-accent hover:scale-[1.02]
-                  active:scale-95
-                  transition-all duration-300"
-                >
-                  Checkout
-                </Link>
+                        <button
+              onClick={() => {
+                window.location.href = "/checkout";
+              }}
+              className="w-full mt-3
+              bg-primary text-white
+              py-2.5 rounded-xl
+              font-semibold font-fancy
+              shadow-md hover:shadow-lg
+              hover:bg-accent hover:scale-[1.02]
+              active:scale-95
+              transition-all duration-300"
+            >
+              Checkout
+            </button>
 
           </div>
 
@@ -83,9 +81,7 @@ export default function CartPage(){
                           <button
                           onClick={
                               ()=> {
-                                addToCart(item,-1)
-                                //to refresh the page automatically after adding to cart
-                                setCart(getCart())
+                               
                               }
                             }
                             className="w-[36px] h-[36px] rounded-full
@@ -105,9 +101,7 @@ export default function CartPage(){
                           <button
                             onClick={
                               ()=> {
-                                addToCart(item,1)
-                                //to refresh the page automatically after adding to cart
-                                setCart(getCart())
+                               
                               }
                             }
                             className="w-[36px] h-[36px] rounded-full
@@ -127,9 +121,7 @@ export default function CartPage(){
                           <button 
                           onClick={
                               ()=> {
-                                removeFromCart(item.productId)
-                                //to refresh the page automatically after adding to cart
-                                setCart(getCart())
+                               
                                 
                               }
                             }
