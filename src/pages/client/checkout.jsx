@@ -2,13 +2,14 @@ import { useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import {  useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 
 
 
 
 export default function CheckOutPage(){
 
-  const location = useLocation();
+ const location = useLocation();
  const [cart, setCart] = useState(location.state?.cart || []);
 
 
@@ -43,7 +44,7 @@ export default function CheckOutPage(){
   setCart(newCart);
 }
 
- function placeOrder(){
+ async function placeOrder(){
   const token =  localStorage.getItem("token");
   if(!token){
     toast.error("Please Log in first");
@@ -52,9 +53,41 @@ export default function CheckOutPage(){
 
   const orderInformation = {
     products : [
-      
-    ]
+
+    ],
+    phone: '0715271694',
+    address: 'colombo, sri lanka'
+
   }
+
+  cart.forEach((item)=>{
+    orderInformation.products.push({
+      productId: item.productId,
+      quantity: item.quantity
+    })
+  })
+
+  try{
+     await axios.post(import.meta.env.VITE_BACKEND_URI + "/api/orders",orderInformation, {
+    headers: {
+      Authorization: "Bearer " + token,
+    }
+  })
+  toast.success("Order Placed successfully");
+  }catch(e){
+    console.log(e);
+    toast.error("Eror placing the order")
+    return
+  }
+
+
+
+  
+
+
+
+
+
  }
 
 
