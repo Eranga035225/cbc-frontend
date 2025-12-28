@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import {  useLocation } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 
 
@@ -42,6 +43,20 @@ export default function CheckOutPage(){
   setCart(newCart);
 }
 
+ function placeOrder(){
+  const token =  localStorage.getItem("token");
+  if(!token){
+    toast.error("Please Log in first");
+    return
+  }
+
+  const orderInformation = {
+    products : [
+      
+    ]
+  }
+ }
+
 
   return(
     <div className="w-full h-full flex flex-col items-center pt-4 my-3 relative"> 
@@ -66,7 +81,8 @@ export default function CheckOutPage(){
 
             <button
               onClick={() => {
-                window.location.href = "/checkout";
+                placeOrder();
+                
               }}
               className="w-full mt-3
               bg-primary text-white
