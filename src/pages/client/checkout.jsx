@@ -31,6 +31,7 @@ export default function CheckOutPage(){
       return;
     }else{
       cart[index].quantity = newQuantity;
+      setCart(cart);
     }
 
   }
