@@ -25,17 +25,23 @@ export default function CheckOutPage(){
 
   }
 
-  function changeQuantity(index,quantity){
-    const newQuantity = cart[index].quantity + quantity;
-    if(newQuantity <= 0 ){
-      removeFromCart(cart[index].productId);
-      return;
-    }else{
-      cart[index].quantity = newQuantity;
-      setCart(cart);
-    }
+ function changeQuantity(index, quantity) {
+  const newCart = [...cart];
+  const newQuantity = newCart[index].quantity + quantity;
 
+  if (newQuantity <= 0) {
+    removeFromCart(newCart[index].productId);
+    return;
   }
+
+  newCart[index] = {
+    ...newCart[index],
+    quantity: newQuantity
+  };
+
+  setCart(newCart);
+}
+
 
   return(
     <div className="w-full h-full flex flex-col items-center pt-4 my-3 relative"> 
