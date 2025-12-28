@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ProductCard({ product }) {
+
   return (
     <Link
       to={`/overview/${product.productId}`}
@@ -50,9 +51,11 @@ export default function ProductCard({ product }) {
         >
           {product.isAvailable ? "In Stock" : "Out of Stock"}
         </span>
+        
 
         {/* Button */}
         <button
+        
           className="mt-4 w-full bg-primary text-white py-2.5 rounded-full
           font-semibold shadow-md hover:shadow-lg hover:scale-[1.02]
           transition-all duration-300"

@@ -7,9 +7,11 @@ import ImageSlider from "../../components/imageSlider";
 import Loading from "../../components/loading";
 import { getCart } from "../../utils/cart";
 import { addToCart } from "../../utils/cart";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ProductOverviewPage(){
+    const navigate = useNavigate();
 
 const params =   useParams()
 const productId = params.id
@@ -99,23 +101,57 @@ useEffect(
           </div>
 
          
-          <button
-            className="mt-6 px-8 py-3 rounded-full bg-primary text-white
-            font-semibold shadow-md hover:shadow-lg hover:scale-[1.03]
-            transition-all duration-300"
+         <div className="mt-6 w-full flex items-center justify-center gap-4">
 
-            onClick = {
-              ()=> {
-                console.log(getCart());
-                addToCart(product,1);
-                toast.success("Product added to cart!");
-              
+  {/* Add to Cart */}
+  <button
+    className="px-8 py-3 rounded-full
+    border-2 border-primary text-primary bg-white
+    font-semibold shadow-sm
+    hover:bg-primary hover:text-white
+    hover:scale-[1.03]
+    transition-all duration-300"
 
-              }
+    onClick={() => {
+      console.log(getCart());
+      addToCart(product, 1);
+      toast.success("Product added to cart!");
+    }}
+  >
+    Add to Cart
+  </button>
+
+  {/* Buy Now */}
+  <button
+    className="px-10 py-3 rounded-full
+    bg-primary text-white
+    font-semibold shadow-md
+    hover:shadow-lg hover:bg-accent
+    hover:scale-[1.05]
+    transition-all duration-300"
+
+    onClick={() => {
+      navigate("/checkout", {
+        state: {
+          cart: [
+            {
+              productId: product.productId,
+              name: product.name,
+              image: product.images[0],
+              price: product.price,
+              labeledPrice: product.labeledPrice,
+              quantity: 1
             }
-          >
-            Add to Cart
-          </button>
+          ]
+        }
+      });
+    }}
+  >
+    Buy Now
+  </button>
+
+</div>
+
 
         </div>
       </div>
