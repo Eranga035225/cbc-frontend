@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Loading from "../../components/loading";
-import Modal from 'react-modal';
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 export default function AdminOrderPage() {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
     if (isLoading) {
@@ -49,6 +52,16 @@ export default function AdminOrderPage() {
     }
   };
 
+  function openOrderModal(order) {
+    setSelectedOrder(order);
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
+    setSelectedOrder(null);
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
 
@@ -70,13 +83,6 @@ export default function AdminOrderPage() {
         </div>
       ) : (
         <div className="bg-white rounded-2xl shadow-md border overflow-x-auto">
-           <Modal
-              isOpen={isModalOpen}
-              onAfterOpen={()=> {}}
-              onRequestClose={()=> {setIsModalOpen(false)}}
-              contentLabel="Example Modal"
-            />
-
           <table className="min-w-full text-sm">
             <thead className="bg-gray-50 border-b sticky top-0 z-10">
               <tr className="text-gray-600 uppercase tracking-wide text-xs">
@@ -94,40 +100,31 @@ export default function AdminOrderPage() {
             <tbody>
               {orders.map((order, index) => (
                 <tr
-                onClick={()=> {setIsModalOpen(true)}}
                   key={index}
-                  className="border-b hover:bg-gray-50 transition"
+                  onClick={() => openOrderModal(order)}
+                  className="border-b hover:bg-gray-50 cursor-pointer transition"
                 >
                   <td className="px-6 py-4 font-medium text-primary">
                     {order.orderId}
                   </td>
-
-                  <td className="px-6 py-4 text-gray-800">
-                    {order.name}
-                  </td>
-
+                  <td className="px-6 py-4">{order.name}</td>
                   <td className="px-6 py-4 text-gray-600">
                     {order.email}
                   </td>
-
                   <td className="px-6 py-4 text-gray-600 max-w-xs truncate">
                     {order.address}
                   </td>
-
                   <td className="px-6 py-4 text-gray-600">
                     {order.phone}
                   </td>
-
                   <td className="px-6 py-4 text-right font-semibold text-primary">
-                  {order.total?.toFixed(2)}
+                    {order.total?.toFixed(2)}
                   </td>
-
                   <td className="px-6 py-4 text-center text-gray-500">
                     {order.date
                       ? new Date(order.date).toLocaleDateString()
                       : "-"}
                   </td>
-
                   <td className="px-6 py-4 text-center">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold ${statusStyle(
@@ -140,10 +137,96 @@ export default function AdminOrderPage() {
                 </tr>
               ))}
             </tbody>
-
           </table>
         </div>
       )}
+
+      {/* ORDER DETAILS MODAL */}
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full mx-auto mt-24 p-6 outline-none"
+        overlayClassName="fixed inset-0 bg-black/40 flex items-start justify-center z-50"
+      >
+        {selectedOrder && (
+          <div className="space-y-6">
+
+            {/* MODAL HEADER */}
+            <div className="flex justify-between items-center border-b pb-3">
+              <h2 className="text-xl font-bold text-gray-800">
+                Order {selectedOrder.orderId}
+              </h2>
+              <button
+                onClick={closeModal}
+                className="text-gray-500 hover:text-gray-800 text-xl"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* CUSTOMER INFO */}
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p className="text-gray-500">Customer</p>
+                <p className="font-medium">{selectedOrder.name}</p>
+              </div>
+              <div>
+                <p className="text-gray-500">Email</p>
+                <p className="font-medium">{selectedOrder.email}</p>
+              </div>
+              <div>
+                <p className="text-gray-500">Phone</p>
+                <p className="font-medium">{selectedOrder.phone}</p>
+              </div>
+              <div>
+                <p className="text-gray-500">Status</p>
+                <span
+                  className={`inline-block mt-1 px-3 py-1 rounded-full text-xs font-semibold ${statusStyle(
+                    selectedOrder.status
+                  )}`}
+                >
+                  {selectedOrder.status}
+                </span>
+              </div>
+            </div>
+
+            {/* ADDRESS */}
+            <div>
+              <p className="text-gray-500 text-sm">Delivery Address</p>
+              <p className="font-medium">{selectedOrder.address}</p>
+            </div>
+
+            {/* PRODUCTS */}
+            <div>
+              <h3 className="font-semibold text-gray-700 mb-2">
+                Products
+              </h3>
+              <div className="space-y-2">
+                {selectedOrder.products.map((p, i) => (
+                  <div
+                    key={i}
+                    className="flex justify-between text-sm border rounded-lg px-4 py-2"
+                  >
+                    <span>
+                      {p.productInfo.name} × {p.quantity}
+                    </span>
+                    <span className="font-medium">
+                      Rs. {(p.productInfo.price * p.quantity).toFixed(2)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* TOTAL */}
+            <div className="flex justify-end border-t pt-4">
+              <p className="text-lg font-bold text-primary">
+                Total: Rs. {selectedOrder.total.toFixed(2)}
+              </p>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }
