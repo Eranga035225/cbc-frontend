@@ -1,17 +1,39 @@
 import { useState } from "react";
 import { BiTrash } from "react-icons/bi";
-import { Link, useLocation } from "react-router-dom";
+import {  useLocation } from "react-router-dom";
+
 
 
 
 export default function CheckOutPage(){
 
   const location = useLocation();
-  
+  const [cart,setCart] = useState([location.state?.cart || []]);
 
+  function getTotal(){
+    let total = 0;
+    for(let i=0; i<cart.length; i++){
+      total += cart[i].price * cart[i].quantity;
+    }
+    return total
+  }
 
+  function removeFromCart(productId){
+    const newCart = cart.filter((item)=> item.productId != productId);
+    setCart(newCart);
 
-  const [cart,setCart] = useState([]);
+  }
+
+  function changeQuantity(index,quantity){
+    const newQuantity = cart[index].quantity + quantity;
+    if(newQuantity <= 0 ){
+      removeFromCart(cart[index].productId);
+      return;
+    }else{
+      cart[index].quantity = newQuantity;
+    }
+
+  }
 
   return(
     <div className="w-full h-full flex flex-col items-center pt-4 my-3 relative"> 
@@ -31,7 +53,7 @@ export default function CheckOutPage(){
               </span>
             </p>
 
-                        <button
+            <button
               onClick={() => {
                 window.location.href = "/checkout";
               }}
@@ -44,7 +66,7 @@ export default function CheckOutPage(){
               active:scale-95
               transition-all duration-300"
             >
-              Checkout
+             Place Order
             </button>
 
           </div>
