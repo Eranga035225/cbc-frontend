@@ -12,16 +12,18 @@ export function getCart(){
   return cart
 }
 
-//function to add a product
 
+
+//function to add a product to the cart
 export function addToCart(product,quantity){
 
   let cart = getCart();
-
+//find if the product is already added to the cart
   let index = cart.findIndex((item)=> {
     return item.productId == product.productId
   })
-
+//if not available it returns -1
+//if available it returns the index
   if(index == -1){
     cart[cart.length] = {
       productId: product.productId,
