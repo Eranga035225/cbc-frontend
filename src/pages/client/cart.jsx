@@ -2,10 +2,6 @@ import { useState } from "react";
 import { getCart } from "../../utils/cart";
 import { BiTrash } from "react-icons/bi";
 
-
-
-
-
 export default function CartPage(){
   const [cart,setCart] = useState(getCart());
 
@@ -83,24 +79,10 @@ export default function CartPage(){
 
   </div>
 );
-
-
-
           }
         )
-
-
-
-
-
-
-
         }
         
-         
-
-
-
     </div>
   )
 

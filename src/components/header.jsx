@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import {  BsCart3 } from "react-icons/bs";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -39,6 +40,26 @@ export default function Header() {
 
     {/* Right Action */}
     <div className="flex items-center gap-4">
+
+      <div className="w-[80px] flex justify-center items-center">
+
+        <Link
+            to="/cart"
+            className="relative w-[42px] h-[42px]
+            flex items-center justify-center
+            rounded-full border border-gray-200
+            text-primary text-xl
+            hover:bg-secondary hover:border-primary
+            hover:scale-105 transition-all duration-300"
+          >
+            <BsCart3 />
+        </Link>
+
+
+      </div>
+
+
+
       <button
         onClick={() => navigate("/login")}
         className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-primary transition"
