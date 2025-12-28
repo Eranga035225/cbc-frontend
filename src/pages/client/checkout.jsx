@@ -7,10 +7,14 @@ import axios from "axios";
 
 
 
+
 export default function CheckOutPage(){
 
  const location = useLocation();
  const [cart, setCart] = useState(location.state?.cart || []);
+ const [phoneNumber, setPhoneNumber] = useState('');
+ const [address, setAddress] = useState('');
+
 
 
   function getTotal(){
@@ -55,8 +59,8 @@ export default function CheckOutPage(){
     products : [
 
     ],
-    phone: '0715271694',
-    address: 'colombo, sri lanka'
+    phone:phoneNumber,
+    address: address
 
   }
 
