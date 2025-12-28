@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { BiTrash } from "react-icons/bi";
+import { Link, useLocation } from "react-router-dom";
 
 
 
 export default function CheckOutPage(){
+
+  const location = useLocation();
   
+
 
 
   const [cart,setCart] = useState([]);
