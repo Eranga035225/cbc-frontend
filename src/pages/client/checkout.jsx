@@ -8,7 +8,8 @@ import {  useLocation } from "react-router-dom";
 export default function CheckOutPage(){
 
   const location = useLocation();
-  const [cart,setCart] = useState([location.state?.cart || []]);
+ const [cart, setCart] = useState(location.state?.cart || []);
+
 
   function getTotal(){
     let total = 0;
@@ -44,12 +45,15 @@ export default function CheckOutPage(){
             font-fancy border border-gray-100"
           >
             <span className="text-xs uppercase tracking-widest text-gray-500">
+              CART TOTAL
              
             </span>
 
             <p className="text-2xl font-bold text-primary">
+              Rs.
              
               <span className="text-accent ml-2">
+               {getTotal().toFixed(2)}
                
               </span>
             </p>
@@ -74,7 +78,7 @@ export default function CheckOutPage(){
 
         {
           cart.map(
-            (item)=> {
+            (item,index)=> {
                       return (
                     <div key={item.productId} className="w-[750px] h-[100px] rounded-tl-3xl bg-white shadow-2xl
                       flex flex-row items-center font-fancy my-3 relative ">
@@ -108,6 +112,7 @@ export default function CheckOutPage(){
                           <button
                           onClick={
                               ()=> {
+                                changeQuantity(index,-1);
                                
                               }
                             }
@@ -128,6 +133,7 @@ export default function CheckOutPage(){
                           <button
                             onClick={
                               ()=> {
+                                changeQuantity(index,1);
                                
                               }
                             }
@@ -148,6 +154,7 @@ export default function CheckOutPage(){
                           <button 
                           onClick={
                               ()=> {
+                                removeFromCart(item.productId);
                                
                                 
                               }
