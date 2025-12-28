@@ -2,11 +2,14 @@
 
 export function getCart(){
   let cart = localStorage.getItem("cart");
-  cart = JSON.parse(cart);
+  
 
   if(cart==null){
-    cart = []
-    localStorage.setItem("cart", JSON.stringify(cart));
+    cart = []  //assigns an empty array
+    localStorage.setItem("cart", JSON.stringify(cart)); //converts to a string and save in the local storage
+  }else{
+    cart = JSON.parse(cart);
+
   }
 
   return cart
