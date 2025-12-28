@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addToCart, getCart } from "../../utils/cart";
+import { addToCart, getCart, removeFromCart } from "../../utils/cart";
 import { BiTrash } from "react-icons/bi";
 
 export default function CartPage(){
@@ -84,7 +84,19 @@ export default function CartPage(){
                             Rs.{(item.quantity*item.price).toFixed(2)}
                           </h1>
 
-                          <button className="absolute text-red-600 cursor-pointer text-2xl hover:bg-red-600 hover:text-white rounded-full p-2 right-[-40px] ">
+                          <button 
+                          onClick={
+                              ()=> {
+                                removeFromCart(item.productId)
+                                //to refresh the page automatically after adding to cart
+                                setCart(getCart())
+                                
+                              }
+                            }
+                          
+                          className="absolute text-red-600 cursor-pointer text-2xl hover:bg-red-600 hover:text-white rounded-full p-2 right-[-40px] "
+                          
+                          >
                             <BiTrash/>
                           </button>
 
