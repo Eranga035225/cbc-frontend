@@ -41,6 +41,13 @@ export default function CartPage(){
                     <div className="w-[200px] h-[100px] flex items-center justify-between gap-3 mr-3">
 
                           <button
+                          onClick={
+                              ()=> {
+                                addToCart(item,-1)
+                                //to refresh the page automatically after adding to cart
+                                setCart(getCart())
+                              }
+                            }
                             className="w-[36px] h-[36px] rounded-full
                             bg-gray-100 text-primary text-xl font-semibold
                             flex items-center justify-center
