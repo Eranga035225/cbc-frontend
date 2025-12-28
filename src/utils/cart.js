@@ -34,7 +34,9 @@ export function addToCart(product,quantity){
       quantity: quantity
     }
   }else{
+    //if already avaialble, increase quantity
     const newQuantity = cart[index].quantity + quantity;
+    //if qunatity becomes 0, remove the product
     if(newQuantity <= 0 ){
       removeFromCart(product.productId);
       return;
