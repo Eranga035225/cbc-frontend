@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import {  BsCart3 } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useState } from "react";
 
 export default function Header() {
-  [sideDrawerOpened, setSideDrawerOpened] = useState(false);
+  const [sideDrawerOpened, setSideDrawerOpened] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -61,6 +62,42 @@ export default function Header() {
 
 
       </div>
+
+      {
+
+        sideDrawerOpened &&
+        <div className="fixed h-screen w-full bg-[#00000060] flex md:hidden ">
+          <div className="w-[350px] bg-white h-full">
+              <div className="w-full h-[80px] shadow-2xl">
+                 {/* Logo */}
+                      <div
+                      onClick={() => window.localStorage.href("/")}
+                      className="flex items-center gap-3 cursor-pointer group ml-6 md:ml-0"
+                    >
+
+                          <img
+                            src="/logo.jpg"
+                            alt="Logo"
+                            className="w-12 h-12 rounded-full object-cover ring-2 ring-primary group-hover:scale-105 transition-all duration-300"
+                          />
+                          <span className="text-xl font-bold text-primary tracking-wide">
+                            Beauty Cosmetics
+                          </span>
+                        </div>
+
+
+              </div>
+
+
+          </div>
+
+
+        </div>
+
+
+
+
+      }
 
 
 
