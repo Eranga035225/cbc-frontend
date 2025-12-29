@@ -182,10 +182,17 @@ export default function AdminOrderPage() {
                   {selectedOrder.status}
                 </span>
                 <select> 
-                    onChange={(e)=> {
-                      console.log(e.target.value)
+                    onChange={async (e)=> {
+                     const updatedValue = e.target.value;
+                     try{
+                      const token = localStorage.getItem("token");
+                      
+                     }catch(e){
+
+                     }
+
                     }}
-                    <option selected >Change status</option>
+                    <option selected disabled>Change status</option>
                     <option value="pending">Pending</option>
                     <option value="completed">Completed</option>
                     <option value="cancelled">Cancelled</option>
