@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { GrGoogle } from "react-icons/gr";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 
 export default function LoginPage() {
@@ -10,30 +10,21 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const googleLogin = useGoogleLogin({
-    onSuccess: (res)=> {
-     const accessToken = res.access_token;
-     axios.post(import.meta.env.VITE_BACKEND_URI + "/api/users/login/google", {
-      accessToken: accessToken
-       
-     }).then((res)=> {
-      toast.success("Login Successful");
-      const token = res.data.token
-      localStorage.setItem("token", token);
-      if(res.data.role === "Admin") {
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
-
-     })
-
-
-    }
-
-  })
-
-
+    onSuccess: (res) => {
+      const accessToken = res.access_token;
+      axios
+        .post(import.meta.env.VITE_BACKEND_URI + "/api/users/login/google", {
+          accessToken,
+        })
+        .then((res) => {
+          toast.success("Login Successful");
+          localStorage.setItem("token", res.data.token);
+          navigate(res.data.role === "Admin" ? "/admin" : "/");
+        });
+    },
+  });
 
   async function handleLogin() {
     if (!email || !password) {
@@ -43,7 +34,6 @@ export default function LoginPage() {
 
     try {
       setLoading(true);
-
       const response = await axios.post(
         import.meta.env.VITE_BACKEND_URI + "/api/users/login",
         { email, password }
@@ -59,27 +49,19 @@ export default function LoginPage() {
     }
   }
 
-
-
   return (
-    <div className="min-h-screen bg-[url('/login2.jpg')] bg-cover bg-right relative">
-      
+    <div className="min-h-screen bg-[url('/login5.jpg')] bg-cover bg-center relative">
       {/* DARK OVERLAY */}
       <div className="absolute inset-0 bg-black/40"></div>
 
-      {/* CONTENT WRAPPER */}
-      <div className="relative min-h-screen flex items-center justify-center md:justify-end px-4">
-
-        {/* LOGIN CARD */}
-        <div className="w-full max-w-md md:mr-12 lg:mr-20">
-          <div className="backdrop-blur-xl bg-white/20
-            rounded-3xl shadow-2xl p-8 border border-white/30">
+      {/* CENTERED CONTENT */}
+      <div className="relative min-h-screen flex items-center justify-center px-4">
+        <div className="w-full max-w-md">
+          <div className="backdrop-blur-xl bg-white/20 rounded-3xl shadow-2xl p-8 border border-white/30">
 
             {/* HEADER */}
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-white">
-                Welcome Back
-              </h1>
+              <h1 className="text-3xl font-bold text-white">Welcome Back</h1>
               <p className="text-white/80 text-sm mt-1">
                 Sign in to continue
               </p>
@@ -95,19 +77,14 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full bg-transparent
-                  border-b border-white/40
-                  px-1 py-3
-                  text-white text-base
-                  placeholder-white/40
-                  focus:outline-none
-                  focus:border-white
-                  transition-all"
+                className="w-full bg-transparent border-b border-white/40 px-1 py-3
+                  text-white placeholder-white/40 focus:outline-none
+                  focus:border-white transition-all"
               />
             </div>
 
             {/* PASSWORD */}
-            <div className="mb-8">
+            <div className="mb-2">
               <label className="block text-sm text-white/70 mb-2">
                 Password
               </label>
@@ -116,15 +93,20 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-transparent
-                  border-b border-white/40
-                  px-1 py-3
-                  text-white text-base
-                  placeholder-white/40
-                  focus:outline-none
-                  focus:border-white
-                  transition-all"
+                className="w-full bg-transparent border-b border-white/40 px-1 py-3
+                  text-white placeholder-white/40 focus:outline-none
+                  focus:border-white transition-all"
               />
+            </div>
+
+            {/* FORGOT PASSWORD */}
+            <div className="text-right mb-6">
+              <Link
+                to="/forget"
+                className="text-sm text-white/70 hover:text-white transition"
+              >
+                Forgot password?
+              </Link>
             </div>
 
             {/* LOGIN BUTTON */}
@@ -151,22 +133,27 @@ export default function LoginPage() {
 
             {/* GOOGLE LOGIN */}
             <button
-            onClick={googleLogin}
-              className="w-full h-[52px] rounded-xl
-                flex items-center justify-center gap-3
-                bg-white text-gray-800 font-semibold
-                hover:bg-gray-100 transition-all duration-300
-                shadow-lg hover:shadow-xl"
+              onClick={googleLogin}
+              className="w-full h-[52px] rounded-xl flex items-center justify-center gap-3
+                bg-white text-gray-800 font-semibold hover:bg-gray-100
+                transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               <GrGoogle size={22} />
               Continue with Google
             </button>
 
-            {/* FOOTER */}
-            <p className="text-center text-white/70 text-xs mt-6">
-              Secure login • Powered by InventX
+            {/* SIGN UP */}
+            <p className="text-center text-white/80 text-sm mt-6">
+              Don’t have an account?{" "}
+              <Link to="/signup" className="font-semibold hover:underline">
+                Sign up
+              </Link>
             </p>
 
+            {/* FOOTER */}
+            <p className="text-center text-white/60 text-xs mt-4">
+              Secure login • Powered by InventX
+            </p>
           </div>
         </div>
       </div>
