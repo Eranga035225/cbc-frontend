@@ -181,54 +181,61 @@ export default function AdminOrderPage() {
                 >
                   {selectedOrder.status}
                 </span>
-                              <select
-                  className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
-                  value={selectedOrder.status}
-                  onChange={async (e) => {
-                    const updatedStatus = e.target.value;
+                                <select
+                    className="mt-2 w-full
+                    rounded-xl px-4 py-2.5
+                    bg-white border border-gray-200
+                    text-sm font-semibold text-primary
+                    shadow-sm
+                    focus:outline-none focus:ring-2 focus:ring-primary/40
+                    hover:border-primary
+                    transition-all duration-200
+                    cursor-pointer"
+                    value={selectedOrder.status}
+                    onChange={async (e) => {
+                      const updatedStatus = e.target.value;
 
-                    try {
-                      const token = localStorage.getItem("token");
+                      try {
+                        const token = localStorage.getItem("token");
 
-                      await axios.put(
-                        `${import.meta.env.VITE_BACKEND_URI}/api/orders/${selectedOrder.orderId}/${updatedStatus}`,
-                        {},
-                        {
-                          headers: {
-                            Authorization: "Bearer " + token,
-                          },
-                        }
-                      );
+                        await axios.put(
+                          `${import.meta.env.VITE_BACKEND_URI}/api/orders/${selectedOrder.orderId}/${updatedStatus}`,
+                          {},
+                          {
+                            headers: {
+                              Authorization: "Bearer " + token,
+                            },
+                          }
+                        );
 
-                      toast.success("Order status updated");
+                        toast.success("Order status updated");
 
-                      // update local state (important)
-                      setSelectedOrder({
-                        ...selectedOrder,
-                        status: updatedStatus,
-                      });
+                        setSelectedOrder({
+                          ...selectedOrder,
+                          status: updatedStatus,
+                        });
 
-                      // update table list
-                      setOrders((prev) =>
-                        prev.map((o) =>
-                          o.orderId === selectedOrder.orderId
-                            ? { ...o, status: updatedStatus }
-                            : o
-                        )
-                      );
+                        setOrders((prev) =>
+                          prev.map((o) =>
+                            o.orderId === selectedOrder.orderId
+                              ? { ...o, status: updatedStatus }
+                              : o
+                          )
+                        );
 
-                    } catch (error) {
-                      toast.error(
-                        error.response?.data?.message || "Failed to update status"
-                      );
-                    }
-                  }}
-                >
-                  <option value="pending">Pending</option>
-                  <option value="completed">Completed</option>
-                  <option value="cancelled">Cancelled</option>
-                  <option value="returned">Returned</option>
-                </select>
+                      } catch (error) {
+                        toast.error(
+                          error.response?.data?.message || "Failed to update status"
+                        );
+                      }
+                    }}
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                    <option value="returned">Returned</option>
+                  </select>
+
 
               </div>
             </div>
