@@ -152,7 +152,7 @@ export default function Header() {
         Login
       </button>
       <button
-        onClick={() => navigate("/register")}
+        onClick={() => navigate("/signup")}
         className="px-6 py-2 rounded-full bg-primary text-white text-sm font-semibold
         shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
       >
