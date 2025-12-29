@@ -21,15 +21,11 @@ export default function LoginPage() {
 
       const response = await axios.post(
         import.meta.env.VITE_BACKEND_URI + "/api/users/login",
-        {
-          email,
-          password,
-        }
+        { email, password }
       );
 
       toast.success("Welcome back!");
       localStorage.setItem("token", response.data.token);
-
       navigate(response.data.role === "Admin" ? "/admin" : "/");
     } catch (e) {
       toast.error(e.response?.data?.message || "Login failed");
@@ -39,83 +35,87 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[url('/login.jpg')] bg-cover bg-center flex items-center justify-center px-4 relative">
-
+    <div className="min-h-screen bg-[url('/login2.jpg')] bg-cover bg-right relative">
+      
       {/* DARK OVERLAY */}
       <div className="absolute inset-0 bg-black/40"></div>
 
-      {/* LOGIN CARD */}
-      <div className="relative w-full max-w-md backdrop-blur-xl bg-white/20
-        rounded-3xl shadow-2xl p-8 border border-white/30">
+      {/* CONTENT WRAPPER */}
+      <div className="relative min-h-screen flex items-center justify-center md:justify-end px-4">
 
-        {/* HEADER */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white">
-            Welcome Back
-          </h1>
-          <p className="text-white/80 text-sm mt-1">
-            Sign in to continue
-          </p>
-        </div>
+        {/* LOGIN CARD */}
+        <div className="w-full max-w-md md:mr-12 lg:mr-20">
+          <div className="backdrop-blur-xl bg-white/20
+            rounded-3xl shadow-2xl p-8 border border-white/30">
 
-        {/* EMAIL */}
-        <div className="mb-6">
-  <label className="block text-sm text-white/70 mb-2">
-    Email address
-  </label>
-  <input
-    type="email"
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-    className="w-full bg-transparent
-      border-b border-white/40
-      px-1 py-3
-      text-white text-base
-      placeholder-white/40
-      focus:outline-none
-      focus:border-white
-      transition-all"
-    placeholder="you@example.com"
-  />
-</div>
+            {/* HEADER */}
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-white">
+                Welcome Back
+              </h1>
+              <p className="text-white/80 text-sm mt-1">
+                Sign in to continue
+              </p>
+            </div>
 
-       <div className="mb-8">
-  <label className="block text-sm text-white/70 mb-2">
-    Password
-  </label>
-  <input
-    type="password"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-    className="w-full bg-transparent
-      border-b border-white/40
-      px-1 py-3
-      text-white text-base
-      placeholder-white/40
-      focus:outline-none
-      focus:border-white
-      transition-all"
-    placeholder="••••••••"
-  />
-</div>
+            {/* EMAIL */}
+            <div className="mb-6">
+              <label className="block text-sm text-white/70 mb-2">
+                Email address
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="w-full bg-transparent
+                  border-b border-white/40
+                  px-1 py-3
+                  text-white text-base
+                  placeholder-white/40
+                  focus:outline-none
+                  focus:border-white
+                  transition-all"
+              />
+            </div>
 
+            {/* PASSWORD */}
+            <div className="mb-8">
+              <label className="block text-sm text-white/70 mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full bg-transparent
+                  border-b border-white/40
+                  px-1 py-3
+                  text-white text-base
+                  placeholder-white/40
+                  focus:outline-none
+                  focus:border-white
+                  transition-all"
+              />
+            </div>
 
-        {/* LOGIN BUTTON */}
-        <button
-          onClick={handleLogin}
-          disabled={loading}
-          className={`w-full h-[52px] rounded-xl text-lg font-semibold
-            transition-all duration-300
-            ${
-              loading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-primary text-white hover:bg-accent shadow-lg hover:shadow-xl"
-            }`}
-        >
-          {loading ? "Signing in..." : "Login"}
-        </button>
-                  
-                  {/* DIVIDER */}
+            {/* LOGIN BUTTON */}
+            <button
+              onClick={handleLogin}
+              disabled={loading}
+              className={`w-full h-[52px] rounded-xl text-lg font-semibold
+                transition-all duration-300
+                ${
+                  loading
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-primary text-white hover:bg-accent shadow-lg hover:shadow-xl"
+                }`}
+            >
+              {loading ? "Signing in..." : "Login"}
+            </button>
+
+            {/* DIVIDER */}
             <div className="flex items-center my-6">
               <div className="flex-1 h-px bg-white/30"></div>
               <span className="px-3 text-xs text-white/70">OR</span>
@@ -127,20 +127,20 @@ export default function LoginPage() {
               className="w-full h-[52px] rounded-xl
                 flex items-center justify-center gap-3
                 bg-white text-gray-800 font-semibold
-                hover:bg-gray-100
-                transition-all duration-300
+                hover:bg-gray-100 transition-all duration-300
                 shadow-lg hover:shadow-xl"
             >
-             <GrGoogle size={22}  />
-
+              <GrGoogle size={22} />
               Continue with Google
             </button>
 
+            {/* FOOTER */}
+            <p className="text-center text-white/70 text-xs mt-6">
+              Secure login • Powered by InventX
+            </p>
 
-        {/* FOOTER */}
-        <p className="text-center text-white/70 text-xs mt-6">
-          Secure login • Powered by InventX
-        </p>
+          </div>
+        </div>
       </div>
     </div>
   );
