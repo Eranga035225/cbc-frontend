@@ -12,7 +12,15 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const googleLogin = useGoogleLogin({
     onSuccess: (res)=> {
-      console.log(res)
+     const accessToken = res.access_token;
+     axios.post(import.meta.env.VITE_BACKEND_URI + "/api/users/google/login", {
+      accessToken: accessToken
+       
+     }).then((res)=> {
+      console.log(res.data)
+
+     })
+     
 
     }
 
