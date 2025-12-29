@@ -13,14 +13,21 @@ export default function LoginPage() {
   const googleLogin = useGoogleLogin({
     onSuccess: (res)=> {
      const accessToken = res.access_token;
-     axios.post(import.meta.env.VITE_BACKEND_URI + "/api/users/google/login", {
+     axios.post(import.meta.env.VITE_BACKEND_URI + "/api/users/login/google", {
       accessToken: accessToken
        
      }).then((res)=> {
-      console.log(res.data)
+      toast.success("Login Successful");
+      const token = res.data.token
+      localStorage.setItem("token", token);
+      if(res.data.role === "Admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
 
      })
-     
+
 
     }
 
