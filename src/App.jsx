@@ -7,6 +7,7 @@ import AdminPage from './pages/adminpage'
 import TestPage from './pages/testPage'
 import { Toaster } from 'react-hot-toast'
 import RegisterPage from './pages/register'
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
 //https://omfainenyhrufrqtiyap.supabase.co
@@ -17,6 +18,7 @@ function App() {
  
 
   return (
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
     <BrowserRouter>
     
        <div>
@@ -33,6 +35,7 @@ function App() {
        </div>
 
     </BrowserRouter>
+    </GoogleOAuthProvider>
       
   )
 }  
