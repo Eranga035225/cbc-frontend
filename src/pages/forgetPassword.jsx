@@ -3,7 +3,6 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-
 export default function ForgetPasswordPage() {
   const [otpSent, setOtpSent] = useState(false);
   const [email, setEmail] = useState("");
@@ -56,12 +55,12 @@ export default function ForgetPasswordPage() {
           newPassword,
         }
       );
+
       toast.success("Password reset successfully");
-      
-    // ✅ Redirect to login after short delay
-    setTimeout(() => {
-      navigate("/login");
-    }, 1000);
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
     } catch (err) {
       toast.error(err.response?.data?.message || "Password reset failed");
     } finally {
@@ -104,7 +103,7 @@ export default function ForgetPasswordPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 className="w-full bg-transparent border-b border-white/40
-                  px-1 py-3 text-white text-base
+                  px-1 py-3 text-white
                   placeholder-white/40 focus:outline-none
                   focus:border-white transition-all"
               />
@@ -139,7 +138,7 @@ export default function ForgetPasswordPage() {
                 onChange={(e) => setOtp(e.target.value)}
                 placeholder="6-digit OTP"
                 className="w-full bg-transparent border-b border-white/40
-                  px-1 py-3 text-white text-base
+                  px-1 py-3 text-white
                   placeholder-white/40 focus:outline-none
                   focus:border-white transition-all"
               />
@@ -155,7 +154,7 @@ export default function ForgetPasswordPage() {
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="••••••••"
                 className="w-full bg-transparent border-b border-white/40
-                  px-1 py-3 text-white text-base
+                  px-1 py-3 text-white
                   placeholder-white/40 focus:outline-none
                   focus:border-white transition-all"
               />
@@ -171,7 +170,7 @@ export default function ForgetPasswordPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
                 className="w-full bg-transparent border-b border-white/40
-                  px-1 py-3 text-white text-base
+                  px-1 py-3 text-white
                   placeholder-white/40 focus:outline-none
                   focus:border-white transition-all"
               />
@@ -190,11 +189,27 @@ export default function ForgetPasswordPage() {
             >
               {loading ? "Resetting..." : "Reset Password"}
             </button>
+
+            {/* CHANGE EMAIL */}
+            <button
+              onClick={() => setOtpSent(false)}
+              className="w-full mt-4 text-sm text-white/70 hover:text-white transition"
+            >
+              Change email
+            </button>
           </>
         )}
 
+        {/* BACK TO LOGIN */}
+        <button
+          onClick={() => navigate("/login")}
+          className="w-full mt-6 text-sm text-white/70 hover:text-white transition"
+        >
+          ← Back to login
+        </button>
+
         {/* FOOTER */}
-        <p className="text-center text-white/70 text-xs mt-6">
+        <p className="text-center text-white/60 text-xs mt-4">
           Secure recovery • Powered by InventX
         </p>
       </div>
