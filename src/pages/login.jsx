@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { GrGoogle } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
@@ -126,6 +127,12 @@ export default function LoginPage() {
             }`}
         >
           {loading ? "Signing in..." : "Login"}
+        </button>
+       
+        <button>
+           <GrGoogle size={24} />
+
+
         </button>
 
         {/* FOOTER */}
