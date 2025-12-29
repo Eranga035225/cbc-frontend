@@ -59,60 +59,46 @@ export default function LoginPage() {
         </div>
 
         {/* EMAIL */}
-        <div className="relative mb-5">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder=" "
-            className="peer w-full h-[52px] px-4 pt-5 rounded-xl
-              bg-white/90 text-gray-800
-              border border-white/40
-              outline-none backdrop-blur-sm
-              focus:border-primary
-              focus:ring-2 focus:ring-primary/30
-              transition-all"
-          />
-          <label
-            className="absolute left-4 top-3 text-sm text-gray-600
-              peer-placeholder-shown:top-4
-              peer-placeholder-shown:text-base
-              peer-focus:top-2
-              peer-focus:text-xs
-              peer-focus:text-primary
-              transition-all"
-          >
-            Email Address
-          </label>
-        </div>
+        <div className="mb-6">
+  <label className="block text-sm text-white/70 mb-2">
+    Email address
+  </label>
+  <input
+    type="email"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    className="w-full bg-transparent
+      border-b border-white/40
+      px-1 py-3
+      text-white text-base
+      placeholder-white/40
+      focus:outline-none
+      focus:border-white
+      transition-all"
+    placeholder="you@example.com"
+  />
+</div>
 
-        {/* PASSWORD */}
-        <div className="relative mb-6">
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder=" "
-            className="peer w-full h-[52px] px-4 pt-5 rounded-xl
-              bg-white/90 text-gray-800
-              border border-white/40
-              outline-none backdrop-blur-sm
-              focus:border-primary
-              focus:ring-2 focus:ring-primary/30
-              transition-all"
-          />
-          <label
-            className="absolute left-4 top-3 text-sm text-gray-600
-              peer-placeholder-shown:top-4
-              peer-placeholder-shown:text-base
-              peer-focus:top-2
-              peer-focus:text-xs
-              peer-focus:text-primary
-              transition-all"
-          >
-            Password
-          </label>
-        </div>
+       <div className="mb-8">
+  <label className="block text-sm text-white/70 mb-2">
+    Password
+  </label>
+  <input
+    type="password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    className="w-full bg-transparent
+      border-b border-white/40
+      px-1 py-3
+      text-white text-base
+      placeholder-white/40
+      focus:outline-none
+      focus:border-white
+      transition-all"
+    placeholder="••••••••"
+  />
+</div>
+
 
         {/* LOGIN BUTTON */}
         <button
@@ -128,12 +114,28 @@ export default function LoginPage() {
         >
           {loading ? "Signing in..." : "Login"}
         </button>
-       
-        <button>
-           <GrGoogle size={24} />
+                  
+                  {/* DIVIDER */}
+            <div className="flex items-center my-6">
+              <div className="flex-1 h-px bg-white/30"></div>
+              <span className="px-3 text-xs text-white/70">OR</span>
+              <div className="flex-1 h-px bg-white/30"></div>
+            </div>
 
+            {/* GOOGLE LOGIN */}
+            <button
+              className="w-full h-[52px] rounded-xl
+                flex items-center justify-center gap-3
+                bg-white text-gray-800 font-semibold
+                hover:bg-gray-100
+                transition-all duration-300
+                shadow-lg hover:shadow-xl"
+            >
+             <GrGoogle size={22}  />
 
-        </button>
+              Continue with Google
+            </button>
+
 
         {/* FOOTER */}
         <p className="text-center text-white/70 text-xs mt-6">
