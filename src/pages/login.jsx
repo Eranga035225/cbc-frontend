@@ -10,6 +10,14 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+    function loginWithGoogle(){
+
+
+
+
+    
+  }
+
   async function handleLogin() {
     if (!email || !password) {
       toast.error("Please enter email and password");
@@ -33,6 +41,8 @@ export default function LoginPage() {
       setLoading(false);
     }
   }
+
+
 
   return (
     <div className="min-h-screen bg-[url('/login2.jpg')] bg-cover bg-right relative">
@@ -124,6 +134,7 @@ export default function LoginPage() {
 
             {/* GOOGLE LOGIN */}
             <button
+            onClick={loginWithGoogle}
               className="w-full h-[52px] rounded-xl
                 flex items-center justify-center gap-3
                 bg-white text-gray-800 font-semibold
