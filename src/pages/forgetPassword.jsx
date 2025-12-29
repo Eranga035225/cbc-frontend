@@ -70,7 +70,7 @@ export default function ForgetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[url('/login2.jpg')] bg-cover bg-right relative flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[url('/login3.jpg')] bg-cover bg-right relative flex items-center justify-center px-4">
 
       {/* DARK OVERLAY */}
       <div className="absolute inset-0 bg-black/40"></div>
