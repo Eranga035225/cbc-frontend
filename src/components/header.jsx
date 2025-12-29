@@ -10,7 +10,14 @@ export default function Header() {
   return (
     <header className="w-full h-[72px] sticky top-0 z-50 bg-white shadow-md ">
   <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between font-fancy relative">
-    <GiHamburgerMenu className="h-full text-3xl md:hidden absolute left-2"/>
+    <GiHamburgerMenu className="h-full text-3xl md:hidden absolute left-2"
+    onClick={
+      ()=>{
+        setSideDrawerOpened(true)
+      }
+    }
+    
+    />
 
     {/* Logo */}
    <div
@@ -63,42 +70,79 @@ export default function Header() {
 
       </div>
 
-      {
+      {sideDrawerOpened && (
+  <div className="fixed inset-0 z-50 md:hidden">
 
-        sideDrawerOpened &&
-        <div className="fixed h-screen w-full bg-[#00000060] flex md:hidden ">
-          <div className="w-[350px] bg-white h-full">
-              <div className="w-full h-[80px] shadow-2xl">
-                 {/* Logo */}
-                      <div
-                      onClick={() => window.localStorage.href("/")}
-                      className="flex items-center gap-3 cursor-pointer group ml-6 md:ml-0"
-                    >
+    {/* Overlay */}
+    <div
+      className="absolute inset-0 bg-black/50"
+      onClick={() => setSideDrawerOpened(false)}
+    />
 
-                          <img
-                            src="/logo.jpg"
-                            alt="Logo"
-                            className="w-12 h-12 rounded-full object-cover ring-2 ring-primary group-hover:scale-105 transition-all duration-300"
-                          />
-                          <span className="text-xl font-bold text-primary tracking-wide">
-                            Beauty Cosmetics
-                          </span>
-                        </div>
+    {/* Drawer */}
+    <div
+      className="absolute left-0 top-0 h-full w-[320px] bg-white
+      shadow-2xl transform transition-transform duration-300
+      translate-x-0 font-fancy"
+    >
 
-
-              </div>
-
-
-          </div>
-
-
+      {/* Drawer Header */}
+      <div className="h-[72px] flex items-center justify-between px-4 border-b">
+        <div
+          onClick={() => {
+            navigate("/");
+            setSideDrawerOpened(false);
+          }}
+          className="flex items-center gap-3 cursor-pointer"
+        >
+          <img
+            src="/logo.jpg"
+            alt="Logo"
+            className="w-10 h-10 rounded-full object-cover ring-2 ring-primary"
+          />
+          <span className="text-lg font-bold text-primary">
+            Beauty Cosmetics
+          </span>
         </div>
 
+        <button
+          onClick={() => setSideDrawerOpened(false)}
+          className="text-2xl text-gray-500 hover:text-primary"
+        >
+          ✕
+        </button>
+      </div>
 
+      {/* Drawer Navigation */}
+      <nav className="flex flex-col gap-4 px-6 py-6">
+        {["Home", "Products", "About", "Contact"].map((item, index) => (
+          <Link
+            key={index}
+            to={`/${item === "Home" ? "" : item.toLowerCase()}`}
+            onClick={() => setSideDrawerOpened(false)}
+            className="text-lg font-semibold text-gray-700
+            hover:text-primary transition"
+          >
+            {item}
+          </Link>
+        ))}
 
+        {/* Divider */}
+        <div className="h-px bg-gray-200 my-4" />
 
-      }
-
+        {/* Cart */}
+        <Link
+          to="/cart"
+          onClick={() => setSideDrawerOpened(false)}
+          className="flex items-center gap-3 text-lg font-semibold text-primary"
+        >
+          <BsCart3 className="text-xl" />
+          Cart
+        </Link>
+      </nav>
+    </div>
+  </div>
+)}
 
 
       <button
