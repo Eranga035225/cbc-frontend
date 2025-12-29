@@ -1,12 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import {  BsCart3 } from "react-icons/bs";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <header className="w-full h-[72px] sticky top-0 z-50 bg-white shadow-md">
+    <header className="w-full h-[72px] sticky top-0 z-50 bg-white shadow-md ">
   <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between font-fancy">
+    <GiHamburgerMenu className="h-full mx-2 text-3xl md:hidden absolute"/>
 
     {/* Logo */}
     <div
@@ -24,7 +26,7 @@ export default function Header() {
     </div>
 
     {/* Navigation */}
-    <nav className="hidden md:flex items-center gap-10">
+    <nav className="hidden  md:flex items-center gap-10 ">
       {["Home", "Products", "About", "Contact"].map((item, index) => (
         <Link
           key={index}
