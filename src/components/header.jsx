@@ -3,6 +3,7 @@ import {  BsCart3 } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 export default function Header() {
+  [sideDrawerOpened, setSideDrawerOpened] = useState(false);
   const navigate = useNavigate();
 
   return (
