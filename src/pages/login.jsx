@@ -3,20 +3,22 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { GrGoogle } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
+import { useGoogleLogin } from "@react-oauth/google";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const googleLogin = useGoogleLogin({
+    onSuccess: (res)=> {
+      console.log(res)
 
-    function loginWithGoogle(){
+    }
+
+  })
 
 
-
-
-    
-  }
 
   async function handleLogin() {
     if (!email || !password) {
@@ -134,7 +136,7 @@ export default function LoginPage() {
 
             {/* GOOGLE LOGIN */}
             <button
-            onClick={loginWithGoogle}
+            onClick={googleLogin}
               className="w-full h-[52px] rounded-xl
                 flex items-center justify-center gap-3
                 bg-white text-gray-800 font-semibold
