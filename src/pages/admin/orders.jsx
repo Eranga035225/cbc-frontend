@@ -181,6 +181,16 @@ export default function AdminOrderPage() {
                 >
                   {selectedOrder.status}
                 </span>
+                <select> 
+                    onChange={(e)=> {
+                      console.log(e.target.value)
+                    }}
+                    <option selected >Change status</option>
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                    <option value="returned">Returned</option>
+                </select>
               </div>
             </div>
 
