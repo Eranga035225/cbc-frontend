@@ -31,7 +31,7 @@ export default function Header() {
         className="w-12 h-12 rounded-full object-cover ring-2 ring-primary group-hover:scale-105 transition-all duration-300"
       />
       <span className="text-xl font-bold text-primary tracking-wide">
-        Beauty Cosmetics
+        Crystal Beauty
       </span>
     </div>
 
@@ -101,7 +101,7 @@ export default function Header() {
             className="w-10 h-10 rounded-full object-cover ring-2 ring-primary"
           />
           <span className="text-lg font-bold text-primary">
-            Beauty Cosmetics
+            Crystal Beauty
           </span>
         </div>
 
