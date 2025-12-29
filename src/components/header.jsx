@@ -7,14 +7,15 @@ export default function Header() {
 
   return (
     <header className="w-full h-[72px] sticky top-0 z-50 bg-white shadow-md ">
-  <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between font-fancy">
-    <GiHamburgerMenu className="h-full mx-2 text-3xl md:hidden absolute"/>
+  <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between font-fancy relative">
+    <GiHamburgerMenu className="h-full text-3xl md:hidden absolute left-2"/>
 
     {/* Logo */}
-    <div
-      onClick={() => navigate("/")}
-      className="flex items-center gap-3 cursor-pointer group"
-    >
+   <div
+  onClick={() => navigate("/")}
+  className="flex items-center gap-3 cursor-pointer group ml-6 md:ml-0"
+>
+
       <img
         src="/logo.jpg"
         alt="Logo"
@@ -43,7 +44,7 @@ export default function Header() {
     {/* Right Action */}
     <div className="flex items-center gap-4">
 
-      <div className="w-[80px] flex justify-center items-center">
+      <div className="w-[80px] flex justify-center items-center hidden md:flex">
 
         <Link
             to="/cart"
