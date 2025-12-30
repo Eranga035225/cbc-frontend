@@ -5,32 +5,38 @@ import { FiSearch } from "react-icons/fi";
 
 export default function SearchProductPage() {
   const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    if (isLoading) {
+    // 🔒 Debounce search (premium UX)
+    const timeout = setTimeout(() => {
+      setIsLoading(true);
+
       axios
-        .get(import.meta.env.VITE_BACKEND_URI + "/api/products")
+        .get(
+          import.meta.env.VITE_BACKEND_URI +
+            "/api/products/search/" +
+            (query || "all")
+        )
         .then((res) => {
           setProducts(Array.isArray(res.data) ? res.data : []);
-          setIsLoading(false);
         })
-        .catch(() => setIsLoading(false));
-    }
-  }, [isLoading]);
+        .catch(() => {
+          setProducts([]);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }, 400); // ⏳ debounce delay
 
-  // 🔍 Filter products
-  const filteredProducts = products.filter((product) =>
-    `${product.name} ${product.productId}`
-      .toLowerCase()
-      .includes(query.toLowerCase())
-  );
+    return () => clearTimeout(timeout);
+  }, [query]);
 
   return (
     <div className="w-full min-h-screen bg-secondary py-12 px-4 font-fancy">
 
-      {/* PAGE HEADER */}
+      {/* HEADER */}
       <div className="max-w-7xl mx-auto text-center mb-10">
         <h1 className="text-4xl font-bold text-primary">
           Our Products
@@ -68,21 +74,26 @@ export default function SearchProductPage() {
       )}
 
       {/* PRODUCTS GRID */}
-      {!isLoading && filteredProducts.length > 0 && (
+      {!isLoading && products.length > 0 && (
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {filteredProducts.map((product) => (
+          {products.map((product) => (
             <ProductCard
-              product={product}
               key={product.productId}
+              product={product}
             />
           ))}
         </div>
       )}
 
-      {/* NO RESULTS */}
-      {!isLoading && filteredProducts.length === 0 && (
+      {/* EMPTY STATE */}
+      {!isLoading && products.length === 0 && (
         <div className="text-center text-gray-400 mt-24 text-lg">
-          🔍 No products found for "<span className="font-semibold">{query}</span>"
+          🔍 No products found
+          {query && (
+            <>
+              {" "}for "<span className="font-semibold">{query}</span>"
+            </>
+          )}
         </div>
       )}
     </div>
