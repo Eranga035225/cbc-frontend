@@ -151,6 +151,7 @@ export default function AdminPage() {
         <Routes>
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/users" element={<CheckUsersPage />} />
+          <Route path="/add-product" element={<AddProductPage />} />
           <Route path="/orders" element={<AdminOrderPage />} />
           <Route path="/reviews" element={<AdminReviewsPage />} />
           <Route path="/edit-product" element={<EditProductPage />} />
