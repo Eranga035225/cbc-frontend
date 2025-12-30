@@ -175,19 +175,147 @@ export default function Header() {
         </div>
       </div>
 
-      {/* MOBILE DRAWER (unchanged) */}
-      {sideDrawerOpened && (
-        <div className="fixed inset-0 z-50 md:hidden">
-          <div
-            className="absolute inset-0 bg-black/50"
-            onClick={() => setSideDrawerOpened(false)}
+{/* MOBILE DRAWER */}
+{sideDrawerOpened && (
+  <div className="fixed inset-0 z-50 md:hidden">
+    {/* BACKDROP */}
+    <div
+      className="absolute inset-0 bg-black/50"
+      onClick={() => setSideDrawerOpened(false)}
+    />
+
+    {/* DRAWER */}
+    <div className="absolute left-0 top-0 h-full w-[300px]
+      bg-white shadow-2xl font-fancy flex flex-col">
+
+      {/* HEADER */}
+      <div className="h-[72px] flex items-center justify-between px-4 border-b">
+        <div
+          onClick={() => {
+            navigate("/");
+            setSideDrawerOpened(false);
+          }}
+          className="flex items-center gap-3 cursor-pointer"
+        >
+          <img
+            src="/logo.jpg"
+            alt="Logo"
+            className="w-10 h-10 rounded-full object-cover ring-2 ring-primary"
           />
-          <div className="absolute left-0 top-0 h-full w-[300px]
-            bg-white shadow-2xl font-fancy">
-            {/* same drawer content as before */}
-          </div>
+          <span className="text-lg font-bold text-primary">
+            Crystal Beauty
+          </span>
         </div>
-      )}
+
+        <button
+          onClick={() => setSideDrawerOpened(false)}
+          className="text-2xl text-gray-500 hover:text-primary"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* NAV LINKS */}
+      <nav className="flex flex-col gap-5 px-6 py-6">
+        {["Home", "Products", "About", "Contact"].map((item) => (
+          <Link
+            key={item}
+            to={`/${item === "Home" ? "" : item.toLowerCase()}`}
+            onClick={() => setSideDrawerOpened(false)}
+            className="text-lg font-semibold text-gray-700
+              hover:text-primary transition"
+          >
+            {item}
+          </Link>
+        ))}
+
+        <div className="h-px bg-gray-200 my-4" />
+
+        {/* SEARCH */}
+        <button
+          onClick={() => {
+            navigate("/search");
+            setSideDrawerOpened(false);
+          }}
+          className="flex items-center gap-3
+            text-lg font-semibold text-gray-700
+            hover:text-primary transition"
+        >
+          <FiSearch className="text-xl" />
+          Search
+        </button>
+
+        {/* CART */}
+        <button
+          onClick={() => {
+            navigate("/cart");
+            setSideDrawerOpened(false);
+          }}
+          className="flex items-center gap-3
+            text-lg font-semibold text-primary"
+        >
+          <BsCart3 className="text-xl" />
+          Cart
+        </button>
+
+        {/* AUTH */}
+        {!user ? (
+          <>
+            <button
+              onClick={() => {
+                navigate("/login");
+                setSideDrawerOpened(false);
+              }}
+              className="text-lg font-semibold text-gray-700 hover:text-primary"
+            >
+              Login
+            </button>
+
+            <button
+              onClick={() => {
+                navigate("/signup");
+                setSideDrawerOpened(false);
+              }}
+              className="mt-2 py-3 rounded-full bg-primary
+                text-white font-semibold"
+            >
+              Get Started
+            </button>
+          </>
+        ) : (
+          <>
+            <div className="flex items-center gap-3 mt-4">
+              {user.img ? (
+                <img
+                  src={user.img}
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+              ) : (
+                <FaUserCircle className="text-3xl text-primary" />
+              )}
+              <span className="font-semibold text-gray-700">
+                {user.firstName}
+              </span>
+            </div>
+
+            <button
+              onClick={() => {
+                logout();
+                setSideDrawerOpened(false);
+              }}
+              className="mt-4 flex items-center gap-3
+                text-red-600 font-semibold"
+            >
+              <FiLogOut />
+              Logout
+            </button>
+          </>
+        )}
+      </nav>
+    </div>
+  </div>
+)}
+
     </header>
   );
 }
