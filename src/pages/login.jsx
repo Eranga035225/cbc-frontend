@@ -41,7 +41,7 @@ export default function LoginPage() {
 
       toast.success("Welcome back!");
       localStorage.setItem("token", response.data.token);
-      navigate(response.data.role === "Admin" ? "/admin" : "/");
+      navigate(response.data.role === "Admin" ? "/admin/products" : "/");
     } catch (e) {
       toast.error(e.response?.data?.message || "Login failed");
     } finally {

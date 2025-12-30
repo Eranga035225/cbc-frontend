@@ -10,6 +10,7 @@ import AddProductPage from "./admin/addProductsPage";
 import EditProductPage from "./admin/productsEditPage";
 import AdminOrderPage from "./admin/orders";
 import CheckUsersPage from "./admin/checkUsers";
+import AdminReviewsPage from "./admin/reviews";
 
 export default function AdminPage() {
   const location = useLocation();
@@ -151,8 +152,7 @@ export default function AdminPage() {
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/users" element={<CheckUsersPage />} />
           <Route path="/orders" element={<AdminOrderPage />} />
-          <Route path="/reviews" element={<h1 className="p-6">Reviews</h1>} />
-          <Route path="/add-product" element={<AddProductPage />} />
+          <Route path="/reviews" element={<AdminReviewsPage />} />
           <Route path="/edit-product" element={<EditProductPage />} />
         </Routes>
       </main>
