@@ -6,20 +6,20 @@ import { FaStar } from "react-icons/fa";
 
 import ImageSlider from "../../components/imageSlider";
 import Loading from "../../components/loading";
-import { getCart, addToCart } from "../../utils/cart";
+import { addToCart } from "../../utils/cart";
 
 export default function ProductOverviewPage() {
   const navigate = useNavigate();
   const { id: productId } = useParams();
 
-  const [status, setStatus] = useState("loading"); // loading | success | error
+  const [status, setStatus] = useState("loading");
   const [product, setProduct] = useState(null);
 
-  // Review modal state
+  // Review state
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
   const [hoverRating, setHoverRating] = useState(0);
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
     axios
@@ -29,8 +29,8 @@ export default function ProductOverviewPage() {
         setStatus("success");
       })
       .catch(() => {
-        setStatus("error");
         toast.error("Failed to load product");
+        setStatus("error");
       });
   }, [productId]);
 
@@ -42,33 +42,24 @@ export default function ProductOverviewPage() {
       return;
     }
 
-    if (rating === 0 || comment.trim() === "") {
-      toast.error("Please give a rating and comment");
+    if (!rating || !comment.trim()) {
+      toast.error("Please add rating and comment");
       return;
     }
 
     try {
       await axios.post(
         import.meta.env.VITE_BACKEND_URI + "/api/reviews/add-review",
-        {
-          productId: product.productId,
-          rating,
-          comment,
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
+        { productId: product.productId, rating, comment },
+        { headers: { Authorization: "Bearer " + token } }
       );
 
-      toast.success("Review submitted successfully");
+      toast.success("Review submitted");
       setShowReviewModal(false);
       setRating(0);
       setComment("");
-    } catch (err) {
+    } catch {
       toast.error("Failed to submit review");
-      console.error(err);
     }
   }
 
@@ -76,41 +67,47 @@ export default function ProductOverviewPage() {
 
   return (
     <>
-      {/* ================= PRODUCT ================= */}
       {status === "success" && (
-        <div className="bg-secondary w-full min-h-screen flex items-center justify-center p-6 font-fancy">
-          <div className="w-full max-w-6xl bg-white rounded-3xl shadow-xl flex flex-col md:flex-row gap-8 p-8">
+        <div className="bg-secondary min-h-screen flex justify-center p-6 font-fancy">
+          <div className="bg-white max-w-6xl w-full rounded-3xl shadow-xl flex flex-col md:flex-row gap-10 p-8">
 
-            {/* LEFT */}
-            <div className="md:w-1/2 w-full flex justify-center items-center">
+            {/* IMAGE */}
+            <div className="md:w-1/2 flex justify-center">
               <ImageSlider images={product.images} />
             </div>
 
-            {/* RIGHT */}
-            <div className="md:w-1/2 w-full flex justify-center items-center">
-              <div className="w-full max-w-md flex flex-col items-center gap-4">
+            {/* DETAILS */}
+            <div className="md:w-1/2 flex items-center">
+              <div className="w-full max-w-md space-y-5">
 
-                <h1 className="text-3xl font-bold text-primary text-center">
+                {/* NAME */}
+                <h1 className="text-3xl font-bold text-primary">
                   {product.name}
-                  {product.altNames.map((alt, i) => (
-                    <span key={i} className="text-lg font-normal text-gray-500">
-                      {" / " + alt}
-                    </span>
-                  ))}
                 </h1>
 
-                <p className="text-sm tracking-widest uppercase text-gray-500">
-                  {product.productId}
-                </p>
+                {/* ALT NAMES – BEAUTIFUL TAG STYLE */}
+                <div className="flex flex-wrap gap-2">
+                  {product.altNames.map((alt, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 rounded-full text-xs
+                        bg-primary/10 text-primary"
+                    >
+                      {alt}
+                    </span>
+                  ))}
+                </div>
 
-                <p className="text-center text-gray-600 leading-relaxed">
+                {/* DESCRIPTION */}
+                <p className="text-gray-600 leading-relaxed">
                   {product.description}
                 </p>
 
-                <div className="mt-4">
+                {/* PRICE */}
+                <div>
                   {product.labeledPrice > product.price ? (
                     <div className="flex items-center gap-4">
-                      <span className="text-xl line-through text-danger">
+                      <span className="line-through text-gray-400">
                         Rs.{product.labeledPrice.toFixed(2)}
                       </span>
                       <span className="text-3xl font-bold text-accent">
@@ -124,18 +121,38 @@ export default function ProductOverviewPage() {
                   )}
                 </div>
 
-                {/* ACTION BUTTONS */}
-                <div className="mt-6 flex flex-wrap gap-4 justify-center">
+                {/* ⭐ MODERN INLINE RATING SECTION */}
+                <div
+                  onClick={() => setShowReviewModal(true)}
+                  className="
+                    flex items-center gap-3 cursor-pointer
+                    text-sm text-gray-600
+                    hover:text-primary transition
+                  "
+                >
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <FaStar key={s} className="text-yellow-400" />
+                    ))}
+                  </div>
+                  <span className="underline underline-offset-4">
+                    Rate this product
+                  </span>
+                </div>
 
+                {/* ACTION BUTTONS */}
+                <div className="flex gap-4 pt-4">
                   <button
                     onClick={() => {
                       addToCart(product, 1);
                       toast.success("Added to cart");
                     }}
-                    className="px-8 py-3 rounded-full border-2 border-primary
-                      text-primary bg-white font-semibold
+                    className="
+                      px-6 py-3 rounded-full border-2 border-primary
+                      text-primary font-semibold
                       hover:bg-primary hover:text-white
-                      transition-all"
+                      transition
+                    "
                   >
                     Add to Cart
                   </button>
@@ -144,101 +161,85 @@ export default function ProductOverviewPage() {
                     onClick={() =>
                       navigate("/checkout", {
                         state: {
-                          cart: [
-                            {
-                              productId: product.productId,
-                              name: product.name,
-                              image: product.images[0],
-                              price: product.price,
-                              labeledPrice: product.labeledPrice,
-                              quantity: 1,
-                            },
-                          ],
+                          cart: [{
+                            productId: product.productId,
+                            name: product.name,
+                            image: product.images[0],
+                            price: product.price,
+                            labeledPrice: product.labeledPrice,
+                            quantity: 1,
+                          }],
                         },
                       })
                     }
-                    className="px-8 py-3 rounded-full bg-primary text-white
-                      font-semibold hover:bg-accent transition-all"
+                    className="
+                      px-6 py-3 rounded-full bg-primary text-white
+                      font-semibold hover:bg-accent transition
+                    "
                   >
                     Buy Now
                   </button>
-
-                  {/* RATE BUTTON */}
-                  <button
-                    onClick={() => setShowReviewModal(true)}
-                    className="px-8 py-3 rounded-full
-                      bg-secondary text-primary font-semibold
-                      hover:bg-primary hover:text-white
-                      transition-all"
-                  >
-                    ⭐ Rate this product
-                  </button>
-
                 </div>
+
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* ================= REVIEW MODAL ================= */}
+      {/* REVIEW MODAL */}
       {showReviewModal && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center px-4">
           <div className="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl">
 
-            <h2 className="text-2xl font-bold text-primary mb-4 text-center">
+            <h2 className="text-2xl font-bold text-primary text-center mb-6">
               Rate this product
             </h2>
 
-            {/* STARS */}
-            <div className="flex justify-center gap-2 mb-4">
-              {[1, 2, 3, 4, 5].map((star) => (
+            <div className="flex justify-center gap-3 mb-5">
+              {[1, 2, 3, 4, 5].map((s) => (
                 <FaStar
-                  key={star}
-                  size={28}
+                  key={s}
+                  size={30}
                   className={`cursor-pointer transition
-                    ${
-                      (hoverRating || rating) >= star
-                        ? "text-yellow-400"
-                        : "text-gray-300"
+                    ${(hoverRating || rating) >= s
+                      ? "text-yellow-400 scale-110"
+                      : "text-gray-300"
                     }`}
-                  onMouseEnter={() => setHoverRating(star)}
+                  onMouseEnter={() => setHoverRating(s)}
                   onMouseLeave={() => setHoverRating(0)}
-                  onClick={() => setRating(star)}
+                  onClick={() => setRating(s)}
                 />
               ))}
             </div>
 
-            {/* COMMENT */}
             <textarea
               rows={4}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="Write your experience..."
-              className="w-full rounded-xl border px-4 py-3
+              placeholder="Share your experience..."
+              className="w-full rounded-xl border px-4 py-3 mb-6
                 focus:border-primary focus:ring-2 focus:ring-primary/20
-                outline-none resize-none mb-4"
+                outline-none resize-none"
             />
 
-            {/* ACTIONS */}
             <div className="flex gap-4">
               <button
                 onClick={() => setShowReviewModal(false)}
-                className="w-1/2 py-3 rounded-xl border
-                  text-gray-600 hover:bg-gray-100 transition"
+                className="w-1/2 py-3 rounded-xl border hover:bg-gray-100"
               >
                 Cancel
               </button>
 
               <button
                 onClick={submitReview}
-                className="w-1/2 py-3 rounded-xl
-                  bg-primary text-white font-semibold
-                  hover:bg-accent transition"
+                className="w-1/2 py-3 rounded-xl bg-primary
+                  text-white font-semibold hover:bg-accent"
               >
                 Submit
               </button>
             </div>
+
           </div>
         </div>
       )}
