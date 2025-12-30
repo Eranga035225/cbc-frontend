@@ -7,6 +7,7 @@ import ProductsPage from "./admin/productsPage";
 import AddProductPage from "./admin/addProductsPage";
 import EditProductPage from "./admin/productsEditPage";
 import AdminOrderPage from "./admin/orders";
+import CheckUsersPage from "./admin/checkUsers";
 
 export default function AdminPage() {
   const location = useLocation();
@@ -44,9 +45,9 @@ export default function AdminPage() {
         setStatus("unauthorized");
         navigate("/login");
       });
-  }, []); // ✅ RUN ONCE ONLY
+  }, []); 
 
-  // ⏳ Loading state
+
   if (status === "loading") {
     return (
       <div className="w-full h-screen flex items-center justify-center">
@@ -55,7 +56,7 @@ export default function AdminPage() {
     );
   }
 
-  // 🚫 Block unauthorized render
+
   if (status !== "authorized") {
     return null;
   }
@@ -115,7 +116,7 @@ export default function AdminPage() {
       <main className="flex-1 overflow-y-auto">
         <Routes>
           <Route path="/products" element={<ProductsPage />} />
-          <Route path="/users" element={<h1 className="p-6">Users</h1>} />
+          <Route path="/users" element={<CheckUsersPage />} />
           <Route path="/orders" element={<AdminOrderPage />} />
           <Route path="/reviews" element={<h1 className="p-6">Reviews</h1>} />
           <Route path="/add-product" element={<AddProductPage />} />
