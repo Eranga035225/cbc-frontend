@@ -25,7 +25,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/40" />
 
         <div className="relative max-w-7xl mx-auto px-6 h-full flex items-center">
-          <div className="max-w-xl text-white space-y-6">
+          <div className="max-w-xl text-white space-y-6 ">
             <h1 className="text-5xl md:text-6xl font-extrabold leading-tight">
               Reveal Your <span className="text-accent">Natural Beauty</span>
             </h1>
