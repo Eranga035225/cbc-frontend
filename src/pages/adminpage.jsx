@@ -1,59 +1,64 @@
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 import ProductsPage from "./admin/productsPage";
 import AddProductPage from "./admin/addProductsPage";
 import EditProductPage from "./admin/productsEditPage";
 import AdminOrderPage from "./admin/orders";
-// import AdminUserPage from "./admin/users";
-// import AdminReviewPage from "./admin/reviews";
-import { useState } from "react";
-import { useEffect } from "react";
-import axios from "axios";
-import toast from "react-hot-toast";
 
 export default function AdminPage() {
   const location = useLocation();
-  const[status, setStatus] = useState('loading');
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    const token = localStorage.getItem('token');
+  const [status, setStatus] = useState("loading"); // loading | authorized | unauthorized
 
-    if(!token){
-      setStatus('unauthorized');
-      window.location.href='/login'
-    }else{
-      axios.get(import.meta.env.VITE_BACKEND_URI + '/api/users',{
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      toast.error("Please login first");
+      setStatus("unauthorized");
+      navigate("/login");
+      return;
+    }
+
+    axios
+      .get(import.meta.env.VITE_BACKEND_URI + "/api/users", {
         headers: {
           Authorization: "Bearer " + token,
         },
-      }).then((res)=>{
-        if(res.data.role !== 'Admin'){
-          setStatus('unauthorized');
-          toast.error('You are not authorized to access this page');
-          window.location.href='/'
-        }else{
-          setStatus('authorized');
-
-        }
-      }).catch((e)=>{
-        setStatus('unauthorized');
-        window.location.href='/login'
-        console.log(e);
-        toast.error('You are not authorized to access this page');
-        window.location.href='/login'
       })
-      }
+      .then((res) => {
+        if (res.data.role !== "Admin") {
+          toast.error("You are not authorized to access admin panel");
+          setStatus("unauthorized");
+          navigate("/");
+        } else {
+          setStatus("authorized");
+        }
+      })
+      .catch(() => {
+        toast.error("Session expired. Please login again");
+        setStatus("unauthorized");
+        navigate("/login");
+      });
+  }, []); // ✅ RUN ONCE ONLY
 
+  // ⏳ Loading state
+  if (status === "loading") {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+      </div>
+    );
+  }
 
-
-
-      },[status]
-        
-        
-        
-      )
-    
-
-  
+  // 🚫 Block unauthorized render
+  if (status !== "authorized") {
+    return null;
+  }
 
   const navItems = [
     { name: "Products", path: "/admin/products" },
@@ -68,7 +73,7 @@ export default function AdminPage() {
       {/* SIDEBAR */}
       <aside className="w-[280px] bg-white border-r shadow-sm flex flex-col">
 
-        {/* LOGO / TITLE */}
+        {/* LOGO */}
         <div className="px-6 py-5 border-b">
           <h1 className="text-xl font-bold text-primary">
             Admin Panel
@@ -102,7 +107,7 @@ export default function AdminPage() {
 
         {/* FOOTER */}
         <div className="px-6 py-4 border-t text-xs text-gray-400">
-          © 2025 Admin
+          © 2025 Crystal Beauty
         </div>
       </aside>
 
