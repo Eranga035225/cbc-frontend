@@ -3,9 +3,57 @@ import ProductsPage from "./admin/productsPage";
 import AddProductPage from "./admin/addProductsPage";
 import EditProductPage from "./admin/productsEditPage";
 import AdminOrderPage from "./admin/orders";
+// import AdminUserPage from "./admin/users";
+// import AdminReviewPage from "./admin/reviews";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function AdminPage() {
   const location = useLocation();
+  const[status, setStatus] = useState('loading');
+
+  useEffect(()=>{
+    const token = localStorage.getItem('token');
+
+    if(!token){
+      setStatus('unauthorized');
+      window.location.href='/login'
+    }else{
+      axios.get(import.meta.env.VITE_BACKEND_URI + '/api/users',{
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }).then((res)=>{
+        if(res.data.role !== 'Admin'){
+          setStatus('unauthorized');
+          toast.error('You are not authorized to access this page');
+          window.location.href='/'
+        }else{
+          setStatus('authorized');
+
+        }
+      }).catch((e)=>{
+        setStatus('unauthorized');
+        window.location.href='/login'
+        console.log(e);
+        toast.error('You are not authorized to access this page');
+        window.location.href='/login'
+      })
+      }
+
+
+
+
+      },[status]
+        
+        
+        
+      )
+    
+
+  
 
   const navItems = [
     { name: "Products", path: "/admin/products" },
